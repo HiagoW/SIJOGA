@@ -23,3 +23,6 @@
 hs_err_pid*
 
 .idea/
+nbproject/
+build/
+build.xml
