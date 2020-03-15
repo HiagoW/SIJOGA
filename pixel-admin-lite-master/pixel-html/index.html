@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>SIJOGA</title>
+    <title>SIJOGA - Processos</title>
     <!-- Bootstrap Core CSS -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
@@ -42,9 +42,14 @@
         <nav class="navbar navbar-default navbar-static-top m-b-0">
             <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
                 <div class="top-left-part"><a class="logo" href="index.html"><b><img src="../plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
+                <ul class="nav navbar-top-links navbar-right pull-left">
+                    <li>
+                        <a class="profile-pic" href="#"><b class="hidden-xs">Sérgio Moro</b> </a>
+                    </li>
+                </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="#"><b class="hidden-xs">Usuário</b> </a>
+                        <a class="profile-pic" href="#"><b class="hidden-xs">Sair</b> </a>
                     </li>
                 </ul>
             </div>
@@ -57,10 +62,10 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
+                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Processos</span></a>
                     </li>
                     <li>
-                        <a href="profile.html" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
+                        <a href="profile.html" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Perfil</span></a>
                     </li>
                     <li>
                         <a href="basic-table.html" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i><span class="hide-menu">Basic Table</span></a>
@@ -86,7 +91,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Dashboard</h4> </div>
+                        <h4 class="page-title">Processos</h4> </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- row -->
@@ -96,7 +101,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
-                                    <h5 class="text-muted vb">PETIÇÕES ESPERANDO ALOCAÇÃO</h5> </div>
+                                    <h5 class="text-muted vb">PROCESSOS EM ANDAMENTO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-danger">10</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -113,7 +118,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">PETIÇÕES EM PROGRESSO</h5> </div>
+                                    <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÇÃO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-megna">3</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -130,7 +135,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
-                                    <h5 class="text-muted vb">PETIÇÕES COMPLETADAS</h5> </div>
+                                    <h5 class="text-muted vb">PROCESSOS ENCERRADOS</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-primary">5</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -148,12 +153,14 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">PETIÇÕES RECENTES
+                            <h3 class="box-title">PROCESSOS RECENTES
                                 <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                                     <select class="form-control pull-right row b-none">
-                                        <option>Março 2019</option>
-                                        <option>Fevereiro 2019</option>
-                                        <option>Janeiro 2019</option>
+                                        <option>Todos</option>
+                                        <option>Aguardando Deliberação</option>
+                                        <option>Aguardando Intimação</option>
+                                        <option>Em Andamento</option>
+                                        <option>Fechados</option>
                                     </select>
                                 </div>
                             </h3>
@@ -169,36 +176,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <a href="#"><tr>
+                                        <a href="#"><tr class="deliberacao">
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>João da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO ALOCAÇÃO</td>
+                                            <td>AGUARDANDO DELIBERAÇÃO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr></a>
                                         <tr>
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>João da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO ALOCAÇÃO</td>
+                                            <td>AGUARDANDO INTIMAÇÃO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                         <tr>
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>João da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO ALOCAÇÃO</td>
+                                            <td>EM ANDAMENTO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                         <tr>
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>João da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO ALOCAÇÃO</td>
+                                            <td>EM ANDAMENTO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                     </tbody>
-                                </table> <a href="#">Ver todas petições</a> </div>
+                                </table> <a href="#">Ver todos processos</a> </div>
                         </div>
                     </div>
                 </div>
