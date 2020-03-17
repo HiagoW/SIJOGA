@@ -96,7 +96,7 @@
                         <div class="white-box">
                             <h3 class="box-title">DADOS DO PROCESSO</h3>
                             <h2 class="box-title">STATUS: AGUARDANDO DELIBERAÇÃO</h2>
-                            <div class="form-horizontal form-material">
+                            <form class="form-horizontal form-material">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Número do processo</label>
@@ -145,23 +145,12 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="form-group col-md-3">
-                                        <select class="form-control pull-right row b-none" id="encaminhamento">
-                                            <option value="aceitar">Aceitar Pedido</option>
-                                            <option value="negar">Negar Pedido</option>
-                                            <option value="intimar">Intimação</option>
-                                            <option value="encerrar">Encerrar</option>
-                                        </select>
+                                    <div class="form-group col-md-12">
+                                        <label class="col-md-12" style="color: red">VOCÊ NEGOU O PEDIDO!</label>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="form-group col-md-3">
-                                        <button class="btn btn-danger btn-block btn-rounded waves-effect waves-light" id="encaminhar">Submeter</button>
-                                    </div>
-                                </div>
-                            </div>
+                                
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -225,25 +214,4 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
 </body>
-<script>
-    $(document).ready(function(){
-            $("#encaminhar").click(function(){
-                selecionado = $("#encaminhamento").children("option:selected").val();
-                switch(selecionado){
-                    case "aceitar":
-                        window.location.replace("aceita-juiz.html");
-                        break;
-                    case "negar":
-                        window.location.replace("nega-juiz.html");
-                        break;
-                    case "intimar":
-                        window.location.replace("intima-juiz.html");
-                        break;
-                    case "encerrar":
-                        window.location.replace("encerra-juiz.html");
-                        break;
-                }
-            });
-        });
-</script>
 </html>

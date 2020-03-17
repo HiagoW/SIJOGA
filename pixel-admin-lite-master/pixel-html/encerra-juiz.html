@@ -144,24 +144,32 @@
                                         <label class="col-md-12">Advogado João da Silva anexou documento comprobatório. É necessário deliberação para continuamento do processo.</label>
                                     </div>
                                 </div>
+                            </div>
+                            <form class="form-horizontal form-material" action="encerra-juiz-2.html">
                                 <div class="row">
-                                    <div class="col-md-4"></div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Parecer</label>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control form-control-line"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                        <label class="col-md-12">Parte vencedora</label>
                                     <div class="form-group col-md-3">
-                                        <select class="form-control pull-right row b-none" id="encaminhamento">
-                                            <option value="aceitar">Aceitar Pedido</option>
-                                            <option value="negar">Negar Pedido</option>
-                                            <option value="intimar">Intimação</option>
-                                            <option value="encerrar">Encerrar</option>
+                                        <select class="form-control pull-right row b-none" id="parteVencedora">
+                                            <option value="processante">Processante</option>
+                                            <option value="processado">Processado</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4"></div>
                                     <div class="form-group col-md-3">
-                                        <button class="btn btn-danger btn-block btn-rounded waves-effect waves-light" id="encaminhar">Submeter</button>
+                                        <input type="submit" class="btn btn-danger btn-block btn-rounded waves-effect waves-light" id="encaminhar" value="Submeter">
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -212,8 +220,7 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="../plugins/bower_components/jquery/dist/jquery.min.js">
-    </script>
+    <script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Menu Plugin JavaScript -->
@@ -225,25 +232,5 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
 </body>
-<script>
-    $(document).ready(function(){
-            $("#encaminhar").click(function(){
-                selecionado = $("#encaminhamento").children("option:selected").val();
-                switch(selecionado){
-                    case "aceitar":
-                        window.location.replace("aceita-juiz.html");
-                        break;
-                    case "negar":
-                        window.location.replace("nega-juiz.html");
-                        break;
-                    case "intimar":
-                        window.location.replace("intima-juiz.html");
-                        break;
-                    case "encerrar":
-                        window.location.replace("encerra-juiz.html");
-                        break;
-                }
-            });
-        });
-</script>
+
 </html>
