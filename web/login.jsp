@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="erro.jsp" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
-    <title>SIJOGA - Perfil</title>
+    <title>SIJOGA</title>
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Menu CSS -->
@@ -32,7 +36,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top m-b-0 p-0">
         <div class="navbar-header">
-            <div class="top-left-part"><a class="logo"><b><img src="../plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
+            <div class="top-left-part"><a class="logo"><b><img src="plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
             <ul class="nav navbar-top-links navbar-right pull-left">
                 <li>
                     <a class="profile-pic" href="#"><b class="hidden-xs">Seja Bem-Vindo</b> </a>
@@ -49,21 +53,21 @@
             <div class="col-md-4 col-xs-4"></div>
             <div class="col-md-4 col-xs-4">
                 <div class="white-box align-middle" style="margin-top: 50px;">
-                    <form class="form-horizontal form-material">
+                    <form class="form-horizontal form-material" method="post" action="LoginServlet">
                         <div class="form-group">
                             <label for="example-email" class="col-md-12">Email</label>
                             <div class="col-md-12">
-                                <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email"> </div>
+                                <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="email" id="example-email"> </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Senha</label>
                             <div class="col-md-12">
-                                <input type="password" value="password" class="form-control form-control-line"> </div>
+                                <input type="password" value="password" class="form-control form-control-line" name="senha"> </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <a role="button" href="index-advogado.html" class="btn btn-success">Entrar</a>
-                            </div>
+                                <button type="submit" class="btn btn-success">Entrar</button>
+                            </div>  
                         </div>
                     </form>
                 </div>
