@@ -5,8 +5,14 @@
  */
 package servlets;
 
+import beans.Usuario;
+import facade.LoginFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,18 +42,37 @@ public class LoginServlet extends HttpServlet {
         String email = (String) request.getParameter("email");
         String sen = (String) request.getParameter("senha");
         
-        switch (email) {
-            case "juiz@juiz":
-                response.sendRedirect("juiz/home.html");
-                break;
-            case "advogado@advogado":
-                response.sendRedirect("advogado/home.html");
-                break;
-            case "parte@parte":
-                response.sendRedirect("parte/home.html");
-                break;
-            default:
-                break;
+        MessageDigest m;
+        try {
+            m = MessageDigest.getInstance("MD5");
+            m.update(sen.getBytes(),0,sen.length());
+            sen = new BigInteger(1,m.digest()).toString(16);
+        } catch (NoSuchAlgorithmException ex) {
+            RequestDispatcher rd;
+            System.out.println("ERRO"); 
+           /*request.setAttribute("javax.servlet.jsp.jspException", ex );
+                request.setAttribute("javax.servlet.error.status_code", 500);
+                rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);*/
+        }
+        
+        Usuario usuario = LoginFacade.buscarLogin(email, sen);
+        
+        if(usuario!=null){
+            switch(usuario.getTipo().getDescricao()){
+                case "Juiz":
+                    response.sendRedirect("juiz/home.html");
+                    break;
+                case "Advogado":
+                    response.sendRedirect("advogado/home.html");
+                    break;
+                case "Parte":
+                    response.sendRedirect("parte/home.html");
+                    break;
+            }
+        }else{
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            rd.forward(request, response);
         }
     }
 
