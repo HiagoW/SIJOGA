@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuarios")
-@SequenceGenerator(name = "seq_usuario", sequenceName = "tb_usuarios_id_seq")
+@SequenceGenerator(name = "seq_usuario", sequenceName = "usuarios_id_seq", initialValue=9)
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")

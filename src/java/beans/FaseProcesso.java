@@ -6,13 +6,10 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,20 +18,17 @@ import javax.persistence.Table;
  * @author hiago
  */
 @Entity
-@Table(name = "tipos_usuarios")
-@SequenceGenerator(name = "seq_tipo_usuario", sequenceName = "tipos_usuarios_id_seq", initialValue=4)
-public class TipoUsuario implements Serializable{
+@Table(name = "fases_processo")
+@SequenceGenerator(name = "seq_fase_processo", sequenceName = "fases_processo_id_seq", initialValue=7)
+public class FaseProcesso implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipo_usuario")
-    private Long id;
-    private String descricao;
-    @OneToMany(mappedBy = "tipo", fetch = FetchType.LAZY)
-    private List<Usuario> usuarios;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_fase_processo")
+    Long id;
+    String descricao;
 
-    public TipoUsuario() {
+    public FaseProcesso() {
     }
     
-   
     public Long getId() {
         return id;
     }
@@ -50,15 +44,6 @@ public class TipoUsuario implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-    
     
     
 }
