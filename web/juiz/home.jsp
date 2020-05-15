@@ -1,3 +1,18 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="erro.jsp" %>
+<c:if test="${(empty sessionScope.bean)}">
+    <jsp:forward page="../login.jsp">
+        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema" />
+    </jsp:forward>
+</c:if>
+<c:if test="${(sessionScope.bean.tipo.id!=1)}">
+    <jsp:forward page="../login.jsp">
+        <jsp:param name="msg" value="Você não tem acesso à essa página!" />
+    </jsp:forward>
+</c:if>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,12 +59,12 @@
                 <div class="top-left-part"><a class="logo" href="home.html"><b><img src="../plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
                 <ul class="nav navbar-top-links navbar-right pull-left">
                     <li>
-                        <a class="profile-pic" href="#"><b class="hidden-xs">Sérgio Moro</b> </a>
+                        <a class="profile-pic" href="#"><b class="hidden-xs">${sessionScope.bean.nome}</b> </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="../login.jsp"><b class="hidden-xs">Sair</b> </a>
+                        <a class="profile-pic" href="../LogoutServlet"><b class="hidden-xs">Sair</b> </a>
                     </li>
                 </ul>
             </div>
@@ -118,7 +133,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÇÃO</h5> </div>
+                                    <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÃÃO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-megna">3</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -157,8 +172,8 @@
                                 <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                                     <select class="form-control pull-right row b-none">
                                         <option>Todos</option>
-                                        <option>Aguardando Deliberação</option>
-                                        <option>Aguardando Intimação</option>
+                                        <option>Aguardando DeliberaÃ§Ã£o</option>
+                                        <option>Aguardando IntimaÃ§Ã£o</option>
                                         <option>Em Andamento</option>
                                         <option>Fechados</option>
                                     </select>
@@ -168,11 +183,11 @@
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th>Nº</th>
+                                            <th>NÂº</th>
                                             <th>PARTE</th>
                                             <th>ADVOGADO</th>
                                             <th>DATA</th>
-                                            <th>SITUAÇÃO</th>
+                                            <th>SITUAÃÃO</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -180,23 +195,23 @@
                                         <a href="#"><tr class="deliberacao">
                                             <td>123</td>
                                             <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>João da Silva</td>
+                                            <td>JoÃ£o da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO DELIBERAÇÃO</td>
+                                            <td>AGUARDANDO DELIBERAÃÃO</td>
                                             <td><a href="encaminhamento.html" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr></a>
                                         <tr>
                                             <td>124</td>
                                             <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>João da Silva</td>
+                                            <td>JoÃ£o da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO INTIMAÇÃO</td>
+                                            <td>AGUARDANDO INTIMAÃÃO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                         <tr>
                                             <td>125</td>
                                             <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>João da Silva</td>
+                                            <td>JoÃ£o da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
                                             <td>EM ANDAMENTO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
@@ -204,7 +219,7 @@
                                         <tr>
                                             <td>126</td>
                                             <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>João da Silva</td>
+                                            <td>JoÃ£o da Silva</td>
                                             <td class="txt-oflo">18/03/2019</td>
                                             <td>EM ANDAMENTO</td>
                                             <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>

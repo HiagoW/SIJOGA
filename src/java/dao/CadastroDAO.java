@@ -7,6 +7,7 @@ package dao;
 
 import beans.Usuario;
 import java.util.List;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -20,22 +21,21 @@ public class CadastroDAO {
     public CadastroDAO() {
     }
     
-    public Usuario buscarLogin(String email, String senha){
+    public Usuario buscarLogin(String email, String senha) throws NonUniqueResultException{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         Query query = session.createQuery("from Usuario where email = :email and senha = :senha");
         query.setParameter("email", email);
         query.setParameter("senha", senha);
-        List<Usuario> results = query.list();
-        Usuario usuario = null;
-        for(Usuario result : results){
-            usuario = result;
-            break;
+        
+        try{
+            Usuario usuario = (Usuario) query.uniqueResult();
+            return usuario;
+        }catch(NonUniqueResultException e){
+            throw e;
+        }finally{
+            session.close();
         }
-        session.close();
-        
-        
-        return usuario;
     }
 }

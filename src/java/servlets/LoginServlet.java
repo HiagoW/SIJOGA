@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import beans.LoginBean;
 import beans.Usuario;
 import facade.LoginFacade;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.hibernate.NonUniqueResultException;
 
 /**
  *
@@ -49,29 +52,42 @@ public class LoginServlet extends HttpServlet {
             sen = new BigInteger(1,m.digest()).toString(16);
         } catch (NoSuchAlgorithmException ex) {
             RequestDispatcher rd;
-            System.out.println("ERRO"); 
-           /*request.setAttribute("javax.servlet.jsp.jspException", ex );
-                request.setAttribute("javax.servlet.error.status_code", 500);
-                rd = getServletContext().getRequestDispatcher("/erro.jsp");
-                rd.forward(request, response);*/
+           request.setAttribute("javax.servlet.jsp.jspException", ex );
+            request.setAttribute("javax.servlet.error.status_code", 500);
+            rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
         }
         
-        Usuario usuario = LoginFacade.buscarLogin(email, sen);
+        Usuario usuario = null;
+        
+        try{
+            usuario = LoginFacade.buscarLogin(email, sen);
+        }catch(NonUniqueResultException ex){
+            RequestDispatcher rd;
+           request.setAttribute("javax.servlet.jsp.jspException", ex );
+            request.setAttribute("javax.servlet.error.status_code", 500);
+            rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);    
+        }
         
         if(usuario!=null){
+            HttpSession session = request.getSession();
+            LoginBean b = new LoginBean(usuario.getNome(), usuario.getEmail(), usuario.getTipo());
+            session.setAttribute("bean", b);
             switch(usuario.getTipo().getDescricao()){
                 case "Juiz":
-                    response.sendRedirect("juiz/home.html");
+                    response.sendRedirect("juiz/home.jsp");
                     break;
                 case "Advogado":
-                    response.sendRedirect("advogado/home.html");
+                    response.sendRedirect("advogado/home.jsp");
                     break;
                 case "Parte":
-                    response.sendRedirect("parte/home.html");
+                    response.sendRedirect("parte/home.jsp");
                     break;
             }
         }else{
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            request.setAttribute("msg", "Usuário ou senha incorretos");
             rd.forward(request, response);
         }
     }

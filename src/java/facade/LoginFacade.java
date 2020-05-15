@@ -7,6 +7,7 @@ package facade;
 
 import beans.Usuario;
 import dao.CadastroDAO;
+import org.hibernate.NonUniqueResultException;
 
 /**
  *
@@ -15,7 +16,7 @@ import dao.CadastroDAO;
 public class LoginFacade {
     
     static CadastroDAO cadastroDAO = new CadastroDAO();
-    public static Usuario buscarLogin(String email, String senha){
+    public static Usuario buscarLogin(String email, String senha) throws NonUniqueResultException{
         return cadastroDAO.buscarLogin(email, senha);
     }
 }

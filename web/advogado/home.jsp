@@ -1,3 +1,17 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page errorPage="erro.jsp" %>
+<c:if test="${(empty sessionScope.bean)}">
+    <jsp:forward page="../login.jsp">
+        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema" />
+    </jsp:forward>
+</c:if>
+<c:if test="${(sessionScope.bean.tipo.id!=2)}">
+    <jsp:forward page="../login.jsp">
+        <jsp:param name="msg" value="Você não tem acesso à essa página!" />
+    </jsp:forward>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,12 +58,12 @@
                 <div class="top-left-part"><a class="logo" href="home.html"><b><img src="../plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
                 <ul class="nav navbar-top-links navbar-right pull-left">
                     <li>
-                        <a class="profile-pic" href="#"><b class="hidden-xs">Fernando Hoflinger</b> </a>
+                        <a class="profile-pic" href="#"><b class="hidden-xs">${sessionScope.bean.nome}</b> </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="../login.jsp"><b class="hidden-xs">Sair</b> </a>
+                        <a class="profile-pic" href="../LogoutServlet"><b class="hidden-xs">Sair</b> </a>
                     </li>
                 </ul>
             </div>
@@ -155,11 +169,11 @@
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th>Nº</th>
+                                            <th>NÂº</th>
                                             <th>PARTE</th>
                                             <th>PAPEL</th>
                                             <th>DATA</th>
-                                            <th>SITUAÇÃO</th>
+                                            <th>SITUAÃÃO</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -169,7 +183,7 @@
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>Promovente</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO DELIBERAÇÃO</td>
+                                            <td>AGUARDANDO DELIBERAÃÃO</td>
                                             <td><a href="detalhesProcesso.html" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr></a>
                                         <tr>
@@ -177,7 +191,7 @@
                                             <td class="txt-oflo">Hiago W Petris</td>
                                             <td>Promovido</td>
                                             <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO INTIMAÇÃO</td>
+                                            <td>AGUARDANDO INTIMAÃÃO</td>
                                             <td><a href="detalhesProcesso.html" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                         <tr>
@@ -210,10 +224,10 @@
                 <div class="row">
                    <div class="col-sm-6">
                        <div class="white-box" style="height: 170px;">
-                           <h4 class="box-title">Relatório de Processos Encerrados</h4>
+                           <h4 class="box-title">RelatÃ³rio de Processos Encerrados</h4>
                            <div class="row">
                                <div class="form-group col-md-5">
-                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 60px;">Emitir Relatório</a>
+                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 60px;">Emitir RelatÃ³rio</a>
                                </div>
                            </div>
                        </div>
@@ -221,7 +235,7 @@
              
                    <div class="col-sm-6">
                         <div class="white-box" style="height: 170px;">
-                            <h4 class="box-title">Relatório de Processos Abertos</h4>
+                            <h4 class="box-title">RelatÃ³rio de Processos Abertos</h4>
                             <div class="row">
                                 <label class="col-sm-3" style="margin-top: 3px;">Data Inicial:</label>
                                 <input type="date">
@@ -232,7 +246,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 5px;">Emitir Relatório</a>
+                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 5px;">Emitir RelatÃ³rio</a>
                                 </div>
                             </div>
                         </div>
