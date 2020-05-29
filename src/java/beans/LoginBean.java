@@ -5,11 +5,18 @@
  */
 package beans;
 
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 /**
  *
  * @author hiago
  */
-public class LoginBean {
+@Named
+@SessionScoped
+public class LoginBean implements Serializable {
+    
     String nome;
     String email;
     TipoUsuario tipo;

@@ -8,6 +8,7 @@ package servlets;
 import beans.LoginBean;
 import beans.Usuario;
 import facade.LoginFacade;
+import facade.ProcessoFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
@@ -74,9 +75,11 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             LoginBean b = new LoginBean(usuario.getNome(), usuario.getEmail(), usuario.getTipo());
             session.setAttribute("bean", b);
+            RequestDispatcher rd;
             switch(usuario.getTipo().getDescricao()){
                 case "Juiz":
-                    response.sendRedirect("juiz/home.jsp");
+                    rd = getServletContext().getRequestDispatcher("/juiz/home.jsp");
+                    rd.forward(request, response);
                     break;
                 case "Advogado":
                     response.sendRedirect("advogado/home.jsp");

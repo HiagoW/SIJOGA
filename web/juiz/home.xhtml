@@ -1,53 +1,42 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page errorPage="erro.jsp" %>
-<c:if test="${(empty sessionScope.bean)}">
-    <jsp:forward page="../login.jsp">
-        <jsp:param name="msg" value="Usuário deve se autenticar para acessar o sistema" />
-    </jsp:forward>
-</c:if>
-<c:if test="${(sessionScope.bean.tipo.id!=1)}">
-    <jsp:forward page="../login.jsp">
-        <jsp:param name="msg" value="Você não tem acesso à essa página!" />
-    </jsp:forward>
-</c:if>
-    
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
+<h:head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png"/>
     <title>SIJOGA - Processos</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <!-- Menu CSS -->
-    <link href="../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet"/>
     <!-- toast CSS -->
-    <link href="../plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="../plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet"/>
     <!-- morris CSS -->
-    <link href="../plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="../plugins/bower_components/morrisjs/morris.css" rel="stylesheet"/>
     <!-- animation CSS -->
-    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet"/>
     <!-- Custom CSS -->
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="../css/estilo.css" rel="stylesheet"/>
     <!-- color CSS -->
-    <link href="../css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="../css/colors/blue-dark.css" id="theme" rel="stylesheet"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-</head>
+</h:head>
 
-<body>
+<h:body>
     <!-- Preloader -->
     <div class="preloader">
         <div class="cssload-speeding-wheel"></div>
@@ -64,7 +53,7 @@
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="../LogoutServlet"><b class="hidden-xs">Sair</b> </a>
+                        <a class="profile-pic" href="LogoutServlet"><b class="hidden-xs">Sair</b> </a>
                     </li>
                 </ul>
             </div>
@@ -133,7 +122,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÃÃO</h5> </div>
+                                    <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÇÃO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-megna">3</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -172,8 +161,8 @@
                                 <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
                                     <select class="form-control pull-right row b-none">
                                         <option>Todos</option>
-                                        <option>Aguardando DeliberaÃ§Ã£o</option>
-                                        <option>Aguardando IntimaÃ§Ã£o</option>
+                                        <option>Aguardando Deliberação</option>
+                                        <option>Aguardando Intimação</option>
                                         <option>Em Andamento</option>
                                         <option>Fechados</option>
                                     </select>
@@ -183,46 +172,22 @@
                                 <table class="table ">
                                     <thead>
                                         <tr>
-                                            <th>NÂº</th>
+                                            <th>Nº</th>
                                             <th>PARTE</th>
                                             <th>ADVOGADO</th>
                                             <th>DATA</th>
-                                            <th>SITUAÃÃO</th>
+                                            <th>SITUAÇÃO</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <a href="#"><tr class="deliberacao">
+                                        <tr class="deliberacao">
                                             <td>123</td>
-                                            <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>JoÃ£o da Silva</td>
-                                            <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO DELIBERAÃÃO</td>
+                                            <td class="txt-oflo">Promovente</td>
+                                            <td>Advogado Promovente</td>
+                                            <td class="txt-oflo">30/05/2020</td>
+                                            <td>AGUARDANDO DELIBERAÇÃO</td>
                                             <td><a href="encaminhamento.html" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
-                                        </tr></a>
-                                        <tr>
-                                            <td>124</td>
-                                            <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>JoÃ£o da Silva</td>
-                                            <td class="txt-oflo">18/03/2019</td>
-                                            <td>AGUARDANDO INTIMAÃÃO</td>
-                                            <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>125</td>
-                                            <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>JoÃ£o da Silva</td>
-                                            <td class="txt-oflo">18/03/2019</td>
-                                            <td>EM ANDAMENTO</td>
-                                            <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>126</td>
-                                            <td class="txt-oflo">Hiago W Petris</td>
-                                            <td>JoÃ£o da Silva</td>
-                                            <td class="txt-oflo">18/03/2019</td>
-                                            <td>EM ANDAMENTO</td>
-                                            <td><a href="#" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
                                         </tr>
                                     </tbody>
                                 </table> </div>
@@ -232,7 +197,7 @@
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel.com </footer>
+            <footer class="footer text-center"> 2017 Pixel Admin brought to you by wrappixel.com </footer>
         </div>
         <!-- /#page-wrapper -->
     </div>
@@ -257,6 +222,6 @@
     <script src="../js/custom.min.js"></script>
     <script src="../js/dashboard1.js"></script>
     <script src="../plugins/bower_components/toast-master/js/jquery.toast.js"></script>
-</body>
+</h:body>
 
 </html>
