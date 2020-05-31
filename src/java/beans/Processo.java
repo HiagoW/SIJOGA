@@ -5,6 +5,7 @@
  */
 package beans;
 
+import facade.ProcessoFaseFacade;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -41,7 +43,12 @@ public class Processo implements Serializable{
     @ManyToOne
     @JoinColumn(name = "promovido")
     Usuario promovido;
-
+    
+    int status;
+    
+    @Transient
+    ProcessoFase faseAtual;
+    
     public Processo() {
     }
     
@@ -91,6 +98,23 @@ public class Processo implements Serializable{
 
     public void setPromovido(Usuario promovido) {
         this.promovido = promovido;
+    }
+
+    public ProcessoFase getFaseAtual() {
+        this.faseAtual = ProcessoFaseFacade.buscarFaseAtual(this);
+        return faseAtual;
+    }
+
+    public void setFaseAtual(ProcessoFase faseAtual) {
+        this.faseAtual = faseAtual;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
     
     
