@@ -103,7 +103,10 @@
                                                 <td><h:outputText value="#{processo.advogadoPromovente.nome}"/></td>
                                                 <td class="txt-oflo">#{processo.faseAtual.data}</td>
                                                 <td>#{processo.faseAtual.fase.descricao}</td>
-                                                <td><a href="encaminhamento.html" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Acessar</a></td>
+                                                <td><h:form>
+                                                    <h:commandLink styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" value="Visualizar" action="#{processoMB.visualizar(processo.id)}"/>
+                                                </h:form>
+                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>

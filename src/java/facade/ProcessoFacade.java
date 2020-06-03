@@ -23,4 +23,8 @@ public class ProcessoFacade {
     public static long processosAtivos(Usuario juiz){
         return processoDAO.processosAtivos(juiz);
     }
+    
+    public static Processo buscarProcesso(long id){
+        return processoDAO.buscarProcesso(id);
+    } 
 }

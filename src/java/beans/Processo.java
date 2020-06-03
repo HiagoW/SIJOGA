@@ -7,6 +7,7 @@ package beans;
 
 import facade.ProcessoFaseFacade;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,7 +44,7 @@ public class Processo implements Serializable{
     @ManyToOne
     @JoinColumn(name = "promovido")
     Usuario promovido;
-    
+    Date data;
     int status;
     
     @Transient
@@ -109,6 +110,15 @@ public class Processo implements Serializable{
         this.faseAtual = faseAtual;
     }
 
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+    
+    
     public int getStatus() {
         return status;
     }

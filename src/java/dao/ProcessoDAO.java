@@ -44,4 +44,16 @@ public class ProcessoDAO {
         
         return total;
     }
+    
+    public Processo buscarProcesso(long id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery(" from Processo where id = :id");
+        query.setParameter("id", id);
+        
+        Processo processo  = (Processo) query.uniqueResult();
+        session.close();
+        
+        return processo;
+    }
 }

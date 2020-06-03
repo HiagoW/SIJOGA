@@ -1,93 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../plugins/images/favicon.png">
-    <title>SIJOGA - Encaminhamento</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Menu CSS -->
-    <link href="../../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-    <!-- toast CSS -->
-    <link href="../../plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
-    <!-- morris CSS -->
-    <link href="../../plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
-    <!-- animation CSS -->
-    <link href="../css/animate.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/estilo.css" rel="stylesheet">
-    <!-- color CSS -->
-    <link href="../css/colors/blue-dark.css" id="theme" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
-
-<body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="cssload-speeding-wheel"></div>
-    </div>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top m-b-0">
-            <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
-                <div class="top-left-part"><a class="logo" href="home.html"><b><img src="../../plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
-                <ul class="nav navbar-top-links navbar-right pull-left">
-                    <li>
-                        <a class="profile-pic" href="#"><b class="hidden-xs">Sérgio Moro</b> </a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <a class="profile-pic" href="../login.html"><b class="hidden-xs">Sair</b> </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-header -->
-            <!-- /.navbar-top-links -->
-            <!-- /.navbar-static-side -->
-        </nav>
-        <!-- Left navbar-header -->
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse slimscrollsidebar">
-                <ul class="nav" id="side-menu">
-                    <li style="padding: 10px 0 0;">
-                        <a href="home.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Processos</span></a>
-                    </li>
-                    <li>
-                        <a href="profile.html" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Perfil</span></a>
-                    </li>
-                    <li>
-                        <a href="../advogado/home.html" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i><span class="hide-menu">Home Advogado</span></a>
-                    </li>
-                    <li>
-                        <a href="../parte/home.html" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i><span class="hide-menu">Home Parte</span></a>
-                    </li>
-                    <li>
-                        <a href="map-google.html" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i><span class="hide-menu">Google Map</span></a>
-                    </li>
-                    <li>
-                        <a href="blank.html" class="waves-effect"><i class="fa fa-columns fa-fw" aria-hidden="true"></i><span class="hide-menu">Blank Page</span></a>
-                    </li>
-                    <li>
-                        <a href="404.html" class="waves-effect"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i><span class="hide-menu">Error 404</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Left navbar-header end -->
-        <!-- Page Content -->
-        <div id="page-wrapper">
+<ui:composition
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="../template.xhtml">
+    <ui:define name="titulo"><title>Home Juiz</title></ui:define>
+    <ui:define name="principal">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -105,41 +23,41 @@
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Número do processo</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="123" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.id}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Data de criação</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="12/03/2020" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="data" styleClass="form-control form-control-line"/> 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="col-md-12">Advogado da parte processante</label>
+                                        <label class="col-md-12">Advogado da parte promovente</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="João da Silva" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovente.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="col-md-12">Parte processanto</label>
+                                        <label class="col-md-12">Parte promovente</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="Clara Rockfeller" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovente.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label class="col-md-12">Advogado da parte processada</label>
+                                        <label class="col-md-12">Advogado da parte promovida</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="Fábio Rocha" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovido.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="col-md-12">Parte processada</label>
+                                        <label class="col-md-12">Parte promovida</label>
                                         <div class="col-md-12">
-                                            <input type="text" disabled value="Maria Lucia" class="form-control form-control-line"> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovido.nome}" styleClass="form-control form-control-line"/> 
                                         </div>
                                     </div>
                                 </div>
@@ -217,34 +135,10 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
-            <footer class="footer text-center"> 2017 &copy; Pixel Admin brought to you by wrappixel.com </footer>
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="../../plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Menu Plugin JavaScript -->
-    <script src="../../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-    <!--slimscroll JavaScript -->
-    <script src="../js/jquery.slimscroll.js"></script>
-    <!--Wave Effects -->
-    <script src="../js/waves.js"></script>
-    <!--Counter js -->
-    <script src="../../plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
-    <script src="../../plugins/bower_components/counterup/jquery.counterup.min.js"></script>
-    <!--Morris JavaScript -->
-    <script src="../../plugins/bower_components/raphael/raphael-min.js"></script>
-    <script src="../../plugins/bower_components/morrisjs/morris.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/dashboard1.js"></script>
-    <script src="../../plugins/bower_components/toast-master/js/jquery.toast.js"></script>
-</body>
-<script>
+                
+            </ui:define>
+    <ui:define name="scripts">
+        <script>
     $(document).ready(function(){
             $("#encaminhar").click(function(){
                 selecionado = $("#encaminhamento").children("option:selected").val();
@@ -265,4 +159,6 @@
             });
         });
 </script>
-</html>
+    </ui:define>
+            
+</ui:composition>
