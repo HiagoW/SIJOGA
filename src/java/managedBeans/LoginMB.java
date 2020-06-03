@@ -32,6 +32,7 @@ public class LoginMB implements Serializable {
     
     private String email;
     private String senha;
+    private Usuario usuario;
     private List<Processo> processos = new ArrayList<>();
     private long processosAtivos;
     
@@ -76,6 +77,14 @@ public class LoginMB implements Serializable {
     public void setProcessosAtivos(long processosAtivos) {
         this.processosAtivos = processosAtivos;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
     
     
@@ -85,7 +94,7 @@ public class LoginMB implements Serializable {
             m = MessageDigest.getInstance("MD5");
             m.update(this.senha.getBytes(),0,this.senha.length());
             String senhaC = new BigInteger(1,m.digest()).toString(16);
-            Usuario usuario = LoginFacade.buscarLogin(email, senhaC);
+            usuario = LoginFacade.buscarLogin(email, senhaC);
             
             if(usuario!=null){
                 switch(usuario.getTipo().getDescricao()){
