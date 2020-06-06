@@ -8,12 +8,15 @@ package beans;
 import facade.ProcessoFaseFacade;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -44,6 +47,9 @@ public class Processo implements Serializable{
     @ManyToOne
     @JoinColumn(name = "promovido")
     Usuario promovido;
+    @OneToMany(mappedBy = "processo", fetch = FetchType.EAGER)
+    List<ProcessoFase> fases;
+    
     Date data;
     int status;
     
@@ -126,6 +132,15 @@ public class Processo implements Serializable{
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public List<ProcessoFase> getFases() {
+        return fases;
+    }
+
+    public void setFases(List<ProcessoFase> fases) {
+        this.fases = fases;
+    }
+    
     
     
 }

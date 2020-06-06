@@ -32,6 +32,7 @@ import util.SessionContext;
 public class ProcessoMB implements Serializable {
     
     private Processo processo;
+    private boolean necessitaResposta;
     
     public ProcessoMB() {
     }
@@ -42,6 +43,14 @@ public class ProcessoMB implements Serializable {
 
     public void setProcesso(Processo processo) {
         this.processo = processo;
+    }
+
+    public boolean isNecessitaResposta() {
+        return this.processo.getFaseAtual().getFase().getId()==2;
+    }
+
+    public void setNecessitaResposta(boolean necessitaResposta) {
+        this.necessitaResposta = necessitaResposta;
     }
     
     

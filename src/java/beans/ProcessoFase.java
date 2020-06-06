@@ -34,7 +34,7 @@ public class ProcessoFase {
     Processo processo;
     @ManyToOne
     @JoinColumn(name = "responsavel")
-    Usuario responsável;
+    Usuario responsavel;
     @ManyToOne
     @JoinColumn(name = "fase")
     FaseProcesso fase;
@@ -61,12 +61,12 @@ public class ProcessoFase {
         this.processo = processo;
     }
 
-    public Usuario getResponsável() {
-        return responsável;
+    public Usuario getResponsavel() {
+        return responsavel;
     }
 
-    public void setResponsável(Usuario responsável) {
-        this.responsável = responsável;
+    public void setResponsavel(Usuario responsavel) {
+        this.responsavel = responsavel;
     }
 
     public FaseProcesso getFase() {

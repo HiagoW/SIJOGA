@@ -101,7 +101,9 @@
                                                 <td><h:outputText value="#{processo.id}"/></td>
                                                 <td class="txt-oflo"><h:outputText value="#{processo.promovente.nome}"/></td>
                                                 <td><h:outputText value="#{processo.advogadoPromovente.nome}"/></td>
-                                                <td class="txt-oflo">#{processo.faseAtual.data}</td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.faseAtual.data}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText></td>
                                                 <td>#{processo.faseAtual.fase.descricao}</td>
                                                 <td><h:form>
                                                     <h:commandLink styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" value="Visualizar" action="#{processoMB.visualizar(processo.id)}"/>

@@ -70,8 +70,6 @@
                                     <div class="col-md-4"></div>
                                     <div class="form-group col-md-3">
                                         <select class="form-control pull-right row b-none" id="encaminhamento">
-                                            <option value="aceitar">Aceitar Pedido</option>
-                                            <option value="negar">Negar Pedido</option>
                                             <option value="intimar">Intimação</option>
                                             <option value="encerrar">Encerrar</option>
                                         </select>
@@ -101,33 +99,22 @@
                                             <th>DATA</th>
                                             <th>ADVOGADO</th>
                                             <th>TÍTULO</th>
-                                            <th>DESCRIÇÃO</th>
                                             <th>ARQUIVO</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>15/03/2020 12:00:00</td>
-                                            <td class="txt-oflo">João da Silva</td>
-                                            <td>Anexou documento comprobatório</td>
-                                            <td>O advogado adicionou um documento comprobatório para provar que o processante possui os dados necessários para dar proseguimento ao processo contra o processado.</td>
-                                            <td><a href='#'>Arquivo.pdf</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>14/03/2020 13:23:23</td>
-                                            <td class="txt-oflo">Sério Moro</td>
-                                            <td>Solicitou documento comprobatório</td>
-                                            <td>Descrição</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>12/03/2020 14:10:15</td>
-                                            <td class="txt-oflo">João da Silva</td>
-                                            <td>Processo criado</td>
-                                            <td>Descrição</td>
-                                            <td></td>
-                                        </tr>
+                                        <h:inputHidden value="#{processoMB.necessitaResposta}" id="necessitaResposta"/>
+                                        <ui:repeat value="#{processoMB.processo.fases}" var="fase">
+                                            <tr>
+                                                <td><h:outputText value="#{fase.data}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:MM"/>
+                                                    </h:outputText></td>
+                                                <td class="txt-oflo"><h:outputText value="#{fase.responsavel.nome}"/></td>
+                                                <td><h:outputText value="#{fase.fase.descricao}"/></td>
+                                                <td><a href='#'><h:outputText value="#{fase.arquivo}"/></a></td>
+                                            </tr>
+                                        </ui:repeat>
                                     </tbody>
                                 </table></div>
                         </div>
@@ -140,6 +127,11 @@
     <ui:define name="scripts">
         <script>
     $(document).ready(function(){
+            console.log($("#necessitaResposta").val());
+            if($("#necessitaResposta").val() == "true"){
+                $("#encaminhamento").append(new Option("Aceitar pedido", "aceita"));
+                $("#encaminhamento").append(new Option("Negar pedido", "nega"));
+            }
             $("#encaminhar").click(function(){
                 selecionado = $("#encaminhamento").children("option:selected").val();
                 switch(selecionado){
