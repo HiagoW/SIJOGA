@@ -28,11 +28,12 @@ import util.SessionContext;
  * @author hiago
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ProcessoMB implements Serializable {
     
     private Processo processo;
-    private boolean necessitaResposta;
+    private List<String> opcoesJuiz;
+    private String acaoJuiz;
     
     public ProcessoMB() {
     }
@@ -45,13 +46,34 @@ public class ProcessoMB implements Serializable {
         this.processo = processo;
     }
 
-    public boolean isNecessitaResposta() {
-        return this.processo.getFaseAtual().getFase().getId()==2;
+    public List<String> getOpcoesJuiz() {
+        opcoesJuiz = new ArrayList<>();
+        if(this.processo.getFaseAtual().getFase().getId()==2){
+            opcoesJuiz.add("Aceitar Pedido");
+            opcoesJuiz.add("Negar Pedido");
+        }
+        opcoesJuiz.add("Intimação");
+            opcoesJuiz.add("Encerrar");
+        return opcoesJuiz;
     }
 
-    public void setNecessitaResposta(boolean necessitaResposta) {
-        this.necessitaResposta = necessitaResposta;
+    public String getAcaoJuiz() {
+        return acaoJuiz;
     }
+
+    public void setAcaoJuiz(String acaoJuiz) {
+        this.acaoJuiz = acaoJuiz;
+    }
+    
+    public void processaAcao(){
+        System.out.println(acaoJuiz);
+    }
+    
+    public void setOpcoesJuiz(List<String> opcoesJuiz) {
+        this.opcoesJuiz = opcoesJuiz;
+    }
+
+    
     
     
    public String visualizar(long id){

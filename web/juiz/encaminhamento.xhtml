@@ -29,7 +29,9 @@
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Data de criação</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="data" styleClass="form-control form-control-line"/> 
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.data}" styleClass="form-control form-control-line">
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:MM"/>
+                                            </h:inputText> 
                                         </div>
                                     </div>
                                 </div>
@@ -61,26 +63,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label class="col-md-12">Advogado João da Silva anexou documento comprobatório. É necessário deliberação para continuamento do processo.</label>
+                                <h:form>
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="form-group col-md-3">
+                                            <h:selectOneMenu id="encaminhamento" styleClass="form-control pull-right row b-none" 
+                                                             value="#{processoMB.acaoJuiz}">
+                                                <f:selectItems value="#{processoMB.opcoesJuiz}"
+                                                               var="opcao"
+                                                               itemLabel="#{opcao}"
+                                                               itemValue="#{opcao}"/>
+                                            </h:selectOneMenu>
+
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="form-group col-md-3">
-                                        <select class="form-control pull-right row b-none" id="encaminhamento">
-                                            <option value="intimar">Intimação</option>
-                                            <option value="encerrar">Encerrar</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="form-group col-md-3">
+                                            <h:commandButton value="Enviar" styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" action="#{processoMB.processaAcao}"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="form-group col-md-3">
-                                        <button class="btn btn-danger btn-block btn-rounded waves-effect waves-light" id="encaminhar">Submeter</button>
-                                    </div>
-                                </div>
+                                </h:form>
                             </div>
                         </div>
                     </div>
@@ -104,7 +107,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <h:inputHidden value="#{processoMB.necessitaResposta}" id="necessitaResposta"/>
                                         <ui:repeat value="#{processoMB.processo.fases}" var="fase">
                                             <tr>
                                                 <td><h:outputText value="#{fase.data}">
@@ -124,33 +126,5 @@
             </div>
                 
             </ui:define>
-    <ui:define name="scripts">
-        <script>
-    $(document).ready(function(){
-            console.log($("#necessitaResposta").val());
-            if($("#necessitaResposta").val() == "true"){
-                $("#encaminhamento").append(new Option("Aceitar pedido", "aceita"));
-                $("#encaminhamento").append(new Option("Negar pedido", "nega"));
-            }
-            $("#encaminhar").click(function(){
-                selecionado = $("#encaminhamento").children("option:selected").val();
-                switch(selecionado){
-                    case "aceitar":
-                        window.location.replace("aceita.html");
-                        break;
-                    case "negar":
-                        window.location.replace("nega.html");
-                        break;
-                    case "intimar":
-                        window.location.replace("intima.html");
-                        break;
-                    case "encerrar":
-                        window.location.replace("encerra.html");
-                        break;
-                }
-            });
-        });
-</script>
-    </ui:define>
             
 </ui:composition>
