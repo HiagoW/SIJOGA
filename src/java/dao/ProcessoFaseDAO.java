@@ -34,4 +34,16 @@ public class ProcessoFaseDAO {
         
         return processoFase;
     }
+    
+    public void criarFase(ProcessoFase fase){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Processo p = fase.getProcesso();
+        session.merge(p);
+        session.flush();
+        fase.setProcesso(p);
+        session.persist(fase);
+        session.getTransaction().commit();
+        session.close();
+    }
 }

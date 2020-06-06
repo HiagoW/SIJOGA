@@ -6,8 +6,9 @@
 package facade;
 
 import beans.Processo;
-import beans.ProcessoFase;
+import beans.FaseProcesso;
 import beans.Usuario;
+import dao.FaseProcessoDAO;
 import dao.ProcessoDAO;
 import dao.ProcessoFaseDAO;
 import java.util.List;
@@ -16,13 +17,10 @@ import java.util.List;
  *
  * @author hiago
  */
-public class ProcessoFaseFacade {
-    static ProcessoFaseDAO processoFaseDAO = new ProcessoFaseDAO();
-    public static ProcessoFase buscarFaseAtual(Processo processo){
-        return processoFaseDAO.buscarFaseAtual(processo);
+public class FaseProcessoFacade {
+    static FaseProcessoDAO faseProcessoDAO = new FaseProcessoDAO();
+    public static FaseProcesso buscarFase(String descricao){
+        return faseProcessoDAO.buscarFase(descricao);
     }
     
-    public static void criarFase(ProcessoFase fase){
-        processoFaseDAO.criarFase(fase);
-    }
 }

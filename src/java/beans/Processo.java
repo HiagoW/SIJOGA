@@ -7,6 +7,7 @@ package beans;
 
 import facade.ProcessoFaseFacade;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -134,6 +135,7 @@ public class Processo implements Serializable{
     }
 
     public List<ProcessoFase> getFases() {
+        Collections.reverse(fases);
         return fases;
     }
 

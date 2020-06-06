@@ -5,15 +5,20 @@
  */
 package managedBeans;
 
+import beans.FaseProcesso;
 import beans.Processo;
+import beans.ProcessoFase;
 import beans.Usuario;
+import facade.FaseProcessoFacade;
 import facade.LoginFacade;
 import facade.ProcessoFacade;
+import facade.ProcessoFaseFacade;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,8 +70,33 @@ public class ProcessoMB implements Serializable {
         this.acaoJuiz = acaoJuiz;
     }
     
-    public void processaAcao(){
-        System.out.println(acaoJuiz);
+    public String processaAcao(){
+        Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
+        ProcessoFase fase = new ProcessoFase();
+        fase.setData(new Date());
+        fase.setProcesso(processo);
+        fase.setResponsavel(usuario);
+        FaseProcesso faseProcesso = null;
+        switch(acaoJuiz){
+            case "Aceitar Pedido":
+                faseProcesso = FaseProcessoFacade.buscarFase("Aceito");
+                break;
+            case "Negar Pedido":
+                faseProcesso = FaseProcessoFacade.buscarFase("Negado");
+                break;
+            case "Intimação":
+                faseProcesso = FaseProcessoFacade.buscarFase("Intimacao");
+                break;
+            case "Encerrar":
+                faseProcesso = FaseProcessoFacade.buscarFase("Encerramento");
+                break;
+            default:
+                faseProcesso = FaseProcessoFacade.buscarFase("Informativa");
+                break;
+        }
+        fase.setFase(faseProcesso);
+        ProcessoFaseFacade.criarFase(fase);
+        return "/juiz/home.xhtml";
     }
     
     public void setOpcoesJuiz(List<String> opcoesJuiz) {

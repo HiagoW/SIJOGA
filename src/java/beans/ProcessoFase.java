@@ -24,12 +24,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "processo_fase")
 @SequenceGenerator(name = "seq_processo_fase", sequenceName = "processo_fase_id_seq")
-public class ProcessoFase {
+public class ProcessoFase implements Comparable<ProcessoFase>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_processo_fase")
     Long id;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "processo")
     Processo processo;
     @ManyToOne
@@ -109,4 +109,8 @@ public class ProcessoFase {
         this.oficial = oficial;
     }
     
+    @Override
+    public int compareTo(ProcessoFase o) {
+        return getData().compareTo(o.getData());
+    }
 }

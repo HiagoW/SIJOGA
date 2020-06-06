@@ -100,8 +100,8 @@
                                     <thead>
                                         <tr>
                                             <th>DATA</th>
-                                            <th>ADVOGADO</th>
-                                            <th>TÍTULO</th>
+                                            <th>RESPONSÁVEL</th>
+                                            <th>TIPO</th>
                                             <th>ARQUIVO</th>
                                             <th></th>
                                         </tr>
@@ -110,7 +110,7 @@
                                         <ui:repeat value="#{processoMB.processo.fases}" var="fase">
                                             <tr>
                                                 <td><h:outputText value="#{fase.data}">
-                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:MM"/>
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
                                                     </h:outputText></td>
                                                 <td class="txt-oflo"><h:outputText value="#{fase.responsavel.nome}"/></td>
                                                 <td><h:outputText value="#{fase.fase.descricao}"/></td>
