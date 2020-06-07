@@ -34,6 +34,8 @@ public class LoginMB implements Serializable {
     private String senha;
     private Usuario usuario;
     private List<Processo> processos = new ArrayList<>();
+    private List<Processo> processosPromovente = new ArrayList<>();
+    private List<Processo> processosPromovido = new ArrayList<>();
     private long processosAtivos;
     
     public LoginMB() {
@@ -69,6 +71,22 @@ public class LoginMB implements Serializable {
     public void setProcessos(List<Processo> processos) {
         this.processos = processos;
     }
+    
+    public List<Processo> getProcessosPromovente() {
+        return processosPromovente;
+    }
+
+    public void setProcessosPromovente(List<Processo> processos) {
+        this.processosPromovente = processos;
+    }
+    
+    public List<Processo> getProcessosPromovido() {
+        return processosPromovido;
+    }
+
+    public void setProcessosPromovido(List<Processo> processos) {
+        this.processosPromovido = processos;
+    }
 
     public long getProcessosAtivos() {
         return processosAtivos;
@@ -103,6 +121,12 @@ public class LoginMB implements Serializable {
                         processosAtivos = ProcessoFacade.processosAtivos(usuario);
                         SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
                         return "/juiz/home.xhtml?faces-redirect=true";
+                    case "Advogado":
+                        processosPromovente = ProcessoFacade.buscaProcessosAdvPromovente(usuario);
+                        processosPromovido = ProcessoFacade.buscaProcessosAdvPromovido(usuario);
+                        /*processosAtivos = ProcessoFacade.processosAtivos(usuario);*/
+                        SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
+                        return "/advogado/home.xhtml?faces-redirect=true";
                     default:
                         return "";
                 }

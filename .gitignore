@@ -30,3 +30,5 @@ build.xml
 /bin/
 
 .project
+
+.DS_Store

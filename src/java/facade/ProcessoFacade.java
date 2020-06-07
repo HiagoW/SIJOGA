@@ -20,6 +20,14 @@ public class ProcessoFacade {
         return processoDAO.buscarProcessos(juiz);
     }
     
+    public static List<Processo> buscaProcessosAdvPromovido(Usuario advogado){
+        return processoDAO.buscarProcessosAdvPromovido(advogado);
+    }
+    
+    public static List<Processo> buscaProcessosAdvPromovente(Usuario advogado){
+        return processoDAO.buscarProcessosAdvPromovente(advogado);
+    }
+    
     public static long processosAtivos(Usuario juiz){
         return processoDAO.processosAtivos(juiz);
     }

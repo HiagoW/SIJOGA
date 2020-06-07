@@ -33,6 +33,32 @@ public class ProcessoDAO {
         return processos;
     }
     
+    public List<Processo> buscarProcessosAdvPromovente(Usuario advogado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Processo where advogadoPromovente = :advogado ");
+        query.setParameter("advogado", advogado);
+        
+        List<Processo> processosPromovente = query.list();
+        session.close();
+        
+        return processosPromovente;
+    }
+    
+    public List<Processo> buscarProcessosAdvPromovido(Usuario advogado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Processo where advogadoPromovido = :advogado ");
+        query.setParameter("advogado", advogado);
+        
+        List<Processo> processosPromovido = query.list();
+        session.close();
+        
+        return processosPromovido;
+    }
+    
+    
+    
     public long processosAtivos(Usuario juiz){
         Session session = HibernateUtil.getSessionFactory().openSession();
         

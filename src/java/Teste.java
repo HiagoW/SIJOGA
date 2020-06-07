@@ -23,7 +23,7 @@ public class Teste {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         
         session.beginTransaction();
         
@@ -44,7 +44,7 @@ public class Teste {
         ProcessoFase processoFase = new ProcessoFase();
         processoFase.setData(new Date());
         processoFase.setProcesso(processo);
-        processoFase.setResponsável(advogadoPromovente);
+        processoFase.setResponsavel(advogadoPromovente);
         processoFase.setFase(faseProcesso);
         
         session.persist(processoFase);

@@ -1,0 +1,159 @@
+<ui:composition
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="../template.xhtml">
+    <ui:define name="titulo"><title>Home Advogado</title></ui:define>
+    <ui:define name="principal">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Processos</h4> </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <!--col -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
+                                    <h5 class="text-muted vb">PROCESSOS EM ANDAMENTO</h5> </div>
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <h3 class="counter text-right m-t-15 text-danger">3</h3> </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete (success)</span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <!--col -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="white-box">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
+                                    <h5 class="text-muted vb">PROCESSOS ENCERRADOS</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-primary">10</h3> </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"> <span class="sr-only">50% Complete (success)</span> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <!--row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">PROCESSOS
+                                <div class="col-md-3 col-sm-5 col-xs-12 pull-right">
+                                    <select class="form-control pull-right row b-none">
+                                        <option>Todos</option>
+                                        <option>Abertos</option>
+                                        <option>Encerrados</option>
+                                        <option>Como Promovente</option>
+                                        <option>Como Promovido</option>
+                                        <option>Ganhos como Promovente</option>
+                                        <option>Perdidos como Promovido</option>
+                                        <option>Perdidos como Promovente</option>
+                                        <option>Ganhos como Promovido</option>
+                                    </select>
+                                </div>
+                            </h3>
+                            <div class="table-responsive">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nº</th>
+                                            <th>PARTE</th>
+                                            <th>PAPEL</th>
+                                            <th>DATA</th>
+                                            <th>SITUAÇÂO</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat value="#{loginMB.processosPromovido}" var="processo">
+                                            <tr class="deliberacao">
+                                                <td><h:outputText value="#{processo.id}"/></td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.promovido.nome}" /></td>
+                                                <td><h:outputText value="Promovido"/></td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.faseAtual.data}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText></td>
+                                                <td>#{processo.faseAtual.fase.descricao }</td>
+                                                <td><h:form>
+                                                    <h:commandLink styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" value="Visualizar" action="#{processoMB.visualizar(processo.id)}"/>
+                                                </h:form>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                        <ui:repeat value="#{loginMB.processosPromovente}" var="processo">
+                                            <tr class="deliberacao">
+                                                <td><h:outputText value="#{processo.id}"/></td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.promovente.nome}" /></td>
+                                                <td><h:outputText value="Promovente"/> </td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.faseAtual.data}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText></td>
+                                                <td>#{processo.faseAtual.fase.descricao }</td>
+                                                <td><h:form>
+                                                    <h:commandLink styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" value="Visualizar" action="#{processoMB.visualizar(processo.id)}"/>
+                                                </h:form>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <a href="criaProcesso.html" class="btn btn-warning btn-rounded btn-block waves-effect waves-light">Criar Novo Processo</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!--<div class="row">
+                   <div class="col-sm-6">
+                       <div class="white-box" style="height: 170px;">
+                           <h4 class="box-title">RelatÃ³rio de Processos Encerrados</h4>
+                           <div class="row">
+                               <div class="form-group col-md-5">
+                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 60px;">Emitir RelatÃ³rio</a>
+                               </div>
+                           </div>
+                       </div>
+                   </div> 
+             
+                   <div class="col-sm-6">
+                        <div class="white-box" style="height: 170px;">
+                            <h4 class="box-title">RelatÃ³rio de Processos Abertos</h4>
+                            <div class="row">
+                                <label class="col-sm-3" style="margin-top: 3px;">Data Inicial:</label>
+                                <input type="date"></input>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3" style="margin-top: 3px;">Data Final:</label>
+                                <input type="date"></input>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" style="margin-top: 5px;">Emitir RelatÃ³rio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>-->
+            </div>
+        </ui:define>
+</ui:composition>
