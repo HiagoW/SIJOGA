@@ -39,6 +39,7 @@ public class ProcessoMB implements Serializable {
     private Processo processo;
     private List<String> opcoesJuiz;
     private String acaoJuiz;
+    private String justificativa;
     
     public ProcessoMB() {
     }
@@ -69,6 +70,16 @@ public class ProcessoMB implements Serializable {
     public void setAcaoJuiz(String acaoJuiz) {
         this.acaoJuiz = acaoJuiz;
     }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
+    }
+    
+    
     
     public String processaAcao(){
         Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
@@ -82,12 +93,14 @@ public class ProcessoMB implements Serializable {
                 faseProcesso = FaseProcessoFacade.buscarFase("Aceito");
                 break;
             case "Negar Pedido":
+                fase.setResposta(justificativa);
                 faseProcesso = FaseProcessoFacade.buscarFase("Negado");
                 break;
             case "Intimação":
                 faseProcesso = FaseProcessoFacade.buscarFase("Intimacao");
                 break;
             case "Encerrar":
+                fase.setResposta(justificativa);
                 faseProcesso = FaseProcessoFacade.buscarFase("Encerramento");
                 break;
             default:
