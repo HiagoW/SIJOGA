@@ -57,20 +57,6 @@ public class ProcessoDAO {
         return processosPromovido;
     }
     
-    
-    
-    public long processosAtivos(Usuario juiz){
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        
-        Query query = session.createQuery("select count(*) from Processo where juiz = :juiz and status = 1");
-        query.setParameter("juiz", juiz);
-        
-        long total = (long) query.uniqueResult();
-        session.close();
-        
-        return total;
-    }
-    
     public Processo buscarProcesso(long id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         

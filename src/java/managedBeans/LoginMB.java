@@ -36,7 +36,9 @@ public class LoginMB implements Serializable {
     private List<Processo> processos = new ArrayList<>();
     private List<Processo> processosPromovente = new ArrayList<>();
     private List<Processo> processosPromovido = new ArrayList<>();
-    private long processosAtivos;
+    private long processosAtivos = 0;
+    private long processosAguardandoIntimacao = 0;
+    private long processosEncerrados = 0;
     
     public LoginMB() {
     }
@@ -103,6 +105,22 @@ public class LoginMB implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public long getProcessosAguardandoIntimacao() {
+        return processosAguardandoIntimacao;
+    }
+
+    public void setProcessosAguardandoIntimacao(long processosAguardandoIntimacao) {
+        this.processosAguardandoIntimacao = processosAguardandoIntimacao;
+    }
+
+    public long getProcessosEncerrados() {
+        return processosEncerrados;
+    }
+
+    public void setProcessosEncerrados(long processosEncerrados) {
+        this.processosEncerrados = processosEncerrados;
+    }
     
     
     
@@ -118,7 +136,15 @@ public class LoginMB implements Serializable {
                 switch(usuario.getTipo().getDescricao()){
                     case "Juiz":
                         processos = ProcessoFacade.buscaProcessos(usuario);
-                        processosAtivos = ProcessoFacade.processosAtivos(usuario);
+                        for(Processo p : processos){
+                            if(p.getFaseAtual().getFase().getId() == 6){
+                                processosEncerrados+=1;
+                            }else if(p.getFaseAtual().getFase().getId() == 5){
+                                processosAguardandoIntimacao+=1;
+                            }else{
+                                processosAtivos+=1;
+                            }
+                        }
                         SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
                         return "/juiz/home.xhtml?faces-redirect=true";
                     case "Advogado":
