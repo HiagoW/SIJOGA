@@ -27,7 +27,7 @@ import managedBeans.LoginMB;
  * @author hiago
  */
 @WebFilter("/faces/juiz/*")
-public class Filtro implements Filter {
+public class FiltroJuiz implements Filter {
     
     
     /**
@@ -68,7 +68,7 @@ public class Filtro implements Filter {
 
     }
 
-    public Filtro() {
+    public FiltroJuiz() {
     }
     
     

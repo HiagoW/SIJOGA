@@ -44,7 +44,7 @@ INSERT INTO processo_fase (id, processo, responsavel, fase, data) VALUES (150, 1
 
 
 INSERT INTO processos (id, juiz, advogadopromovente, promovente, promovido, advogadopromovido, status, data)
-VALUES(100, 1, 3, 2, 5, 4, 1, '2020-06-03');
+VALUES(100, 1, 3, 2, 5, 4, 1, '2020-05-15');
 
 INSERT INTO tipos_usuarios (id, descricao) VALUES (1,'Juiz'),(2, 'Advogado'), (3, 'Parte');
 

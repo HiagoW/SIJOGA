@@ -22,12 +22,11 @@
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     <filter>
-            <filter-name>Filtro</filter-name>
-            <filter-class>filters.Filtro</filter-class>
-        </filter>
-
-        <filter-mapping>
-            <filter-name>Filtro</filter-name>
-            <url-pattern>/juiz/*</url-pattern>
-        </filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <filter-class>filters.FiltroJuiz</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filtro</filter-name>
+        <url-pattern>/juiz/*</url-pattern>
+    </filter-mapping>
 </web-app>
