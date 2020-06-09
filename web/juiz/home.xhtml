@@ -22,7 +22,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
                                     <h5 class="text-muted vb">PROCESSOS EM ANDAMENTO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger"><h:outputText value="#{loginMB.processosAtivos}"/></h3> </div>
+                                    <h3 class="counter text-right m-t-15 text-danger"><h:outputText value="#{processosMB.processosAtivos}"/></h3> </div>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
                                     <h5 class="text-muted vb">PROCESSOS AGUARDANDO INTIMAÇÃO</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-megna"><h:outputText value="#{loginMB.processosAguardandoIntimacao}"/></h3> </div>
+                                    <h3 class="counter text-right m-t-15 text-megna"><h:outputText value="#{processosMB.processosAguardandoIntimacao}"/></h3> </div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
                                     <h5 class="text-muted vb">PROCESSOS ENCERRADOS</h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-primary"><h:outputText value="#{loginMB.processosEncerrados}"/></h3> </div>
+                                    <h3 class="counter text-right m-t-15 text-primary"><h:outputText value="#{processosMB.processosEncerrados}"/></h3> </div>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ui:repeat value="#{loginMB.processos}" var="processo">
+                                        <ui:repeat value="#{processosMB.processos}" var="processo">
                                             <tr>
                                                 <td hidden="true" id="idFase"><h:outputText value="#{processo.faseAtual.fase.id}"/></td>
                                                 <td><h:outputText value="#{processo.id}"/></td>

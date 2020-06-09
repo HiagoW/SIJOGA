@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <ui:repeat value="#{loginMB.processosPromovido}" var="processo">
+                                        <ui:repeat value="#{processosMB.processosPromovido}" var="processo">
                                             <tr class="deliberacao">
                                                 <td><h:outputText value="#{processo.id}"/></td>
                                                 <td class="txt-oflo"><h:outputText value="#{processo.promovido.nome}" /></td>
@@ -97,7 +97,7 @@
                                                 </td>
                                             </tr>
                                         </ui:repeat>
-                                        <ui:repeat value="#{loginMB.processosPromovente}" var="processo">
+                                        <ui:repeat value="#{processosMB.processosPromovente}" var="processo">
                                             <tr class="deliberacao">
                                                 <td><h:outputText value="#{processo.id}"/></td>
                                                 <td class="txt-oflo"><h:outputText value="#{processo.promovente.nome}" /></td>
