@@ -38,4 +38,18 @@ public class CadastroDAO {
             session.close();
         }
     }
+    
+    public long verificaEmail(String email){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("select count(*) from Usuario where email = :email");
+        query.setParameter("email", email);
+        
+            long resultado = (long) query.uniqueResult();
+        
+        
+            session.close();
+            
+            return resultado;
+    }
 }

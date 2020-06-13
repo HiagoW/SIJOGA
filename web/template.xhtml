@@ -69,15 +69,17 @@ and open the template in the editor.
         <!-- Left navbar-header -->
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+                <h:form>
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="../home.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Processos</span></a>
+                        <h:commandLink action="#{menuMB.home}" value="" styleClass="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Home</span></h:commandLink>
                     </li>
                     <li>
-                        <a href="../profile.html" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Perfil</span></a>
+                        <h:commandLink action="#{menuMB.perfil}" value="" styleClass="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Perfil</span></h:commandLink>
                     </li>
                     <ui:insert name="menu"></ui:insert>
                 </ul>
+                </h:form>
             </div>
         </div>
         <!-- Left navbar-header end -->
