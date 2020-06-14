@@ -6,6 +6,7 @@
 package managedBeans;
 
 import beans.Processo;
+import beans.TipoUsuario;
 import beans.Usuario;
 import facade.CadastroFacade;
 import facade.LoginFacade;
@@ -32,24 +33,23 @@ import util.SessionContext;
  */
 @Named
 @RequestScoped
-public class PerfilMB implements Serializable {
+public class CadastroMB implements Serializable {
     
     private String email;
     private String nome;
     private String senha;
     private String senha2;
-    private Usuario usuario;
-    
-    public PerfilMB() {
-    }
+    private TipoUsuario tipo;
+    private List<TipoUsuario> tipos;
     
     @PostConstruct
     public void init(){
-        usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
-        email = usuario.getEmail();
-        nome = usuario.getNome();
+        tipos = CadastroFacade.buscarTipos();
     }
-
+    
+    public CadastroMB() {
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -82,22 +82,29 @@ public class PerfilMB implements Serializable {
         this.senha2 = senha2;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public TipoUsuario getTipo() {
+        return tipo;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<TipoUsuario> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(List<TipoUsuario> tipos) {
+        this.tipos = tipos;
     }
     
-    public String alterarPerfil(){
-        if(!email.equals(usuario.getEmail())){
-            long resultado = CadastroFacade.verificaEmail(email);
-            if(resultado!=0){
-                System.out.println("Email ja cadastrado");
-                return "/juiz/home.xhtml";
-            }
+    public String cadastrar(){
+        long resultado = CadastroFacade.verificaEmail(email);
+        if(resultado!=0){
+            System.out.println("Email ja cadastrado");
+            return "login.xhtml";
         }
+        Usuario usuario = new Usuario();
         MessageDigest m;
         try {
             m = MessageDigest.getInstance("MD5");            
@@ -106,10 +113,11 @@ public class PerfilMB implements Serializable {
             usuario.setSenha(senhaC);
             usuario.setEmail(email);
             usuario.setNome(nome);
-            CadastroFacade.alterar(usuario);
+            usuario.setTipo(tipo);
+            CadastroFacade.cadastrar(usuario);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PerfilMB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/juiz/profile.xhtml";
+        return "login.xhtml";
     }
 }

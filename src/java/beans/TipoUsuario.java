@@ -59,6 +59,14 @@ public class TipoUsuario implements Serializable{
         this.usuarios = usuarios;
     }
     
-    
+    @Override
+    public boolean equals(Object e) {
+        return (this.descricao.equalsIgnoreCase(((TipoUsuario)e).getDescricao()));
+    }
+
+    @Override
+    public int hashCode() {
+        return this.descricao.hashCode();
+    }
     
 }

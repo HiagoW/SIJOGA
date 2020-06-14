@@ -36,10 +36,10 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top m-b-0 p-0">
         <div class="navbar-header">
-            <div class="top-left-part"><a class="logo"><b><img src="plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
+            <div class="top-left-part"><a href="login.xhtml" class="logo"><b><img src="plugins/images/logo.png" alt="home" /></b><span class="hidden-xs logo-word">SIJOGA</span></a></div>
             <ul class="nav navbar-top-links navbar-right pull-left">
                 <li>
-                    <a class="profile-pic" href="login.jsp"><b class="hidden-xs">Seja Bem-Vindo</b> </a>
+                    <a class="profile-pic" href="login.jsp"><b class="hidden-xs">Cadastro</b> </a>
                 </li>
             </ul>
         </div>
@@ -53,25 +53,36 @@
             <div class="col-md-4 col-xs-4"></div>
             <div class="col-md-4 col-xs-4">
                 <div class="white-box align-middle" style="margin-top: 50px;">
-                    <h:form class="form-horizontal form-material">
+                    <h:form class="form-horizontal form-material" id="form">
+                        <div class="form-group">
+                            <h:outputLabel for="nome" class="col-md-12" value="Nome Completo"/>
+                            <div class="col-md-12">
+                                <h:inputText class="form-control form-control-line" id="nome" value="#{cadastroMB.nome}" /> </div>
+                        </div>
                         <div class="form-group">
                             <h:outputLabel for="email" class="col-md-12" value="Email"/>
                             <div class="col-md-12">
-                                <h:inputText class="form-control form-control-line" id="email" value="#{loginMB.email}" /> </div>
+                                <h:inputText class="form-control form-control-line" id="email" value="#{cadastroMB.email}" /> </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel class="col-md-12" for="senha" value="Senha"/>
                             <div class="col-md-12">
-                                <h:inputSecret class="form-control form-control-line" id="senha" value="#{loginMB.senha}"/> </div>
+                                <h:inputSecret class="form-control form-control-line" id="senha" value="#{cadastroMB.senha}"/> </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-12" for="senha2" value="Confirmação de Senha"/>
+                            <div class="col-md-12">
+                                <h:inputSecret class="form-control form-control-line" id="senha2" value="#{cadastroMB.senha2}"/> </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-12" value="Tipo de Usuario: " for="tipo"/>
+                            <h:selectOneMenu id="tipo" value="#{cadastroMB.tipo}" class="form-control form-control-line" converter="tipoConverter">
+                                <f:selectItems value="#{cadastroMB.tipos}" var="vtipo" itemLabel="#{vtipo.descricao}" itemValue="#{vtipo}"/>
+                            </h:selectOneMenu>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <h:commandButton class="btn btn-success" value="Entrar" action="#{loginMB.realizaLogin}"/>
-                            </div>  
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <a class="btn btn-success" href="cadastro.xhtml">Cadastrar</a>
+                                <h:commandButton class="btn btn-success" value="Cadastrar" action="#{cadastroMB.cadastrar}"/>
                             </div>  
                         </div>
                     </h:form>
@@ -79,7 +90,7 @@
             </div>
         </div>
     </div>
-    <footer class="footer text-center" style="left: 0;"> 2017  Pixel Admin brought to you by wrappixel.com </footer>
+    
 
     <!-- jQuery -->
     <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
@@ -93,6 +104,17 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script>
+            $('#form').submit(function(e) {
+                
+                var senha = $("#form\\:senha").val();
+                var senha2 = $("#form\\:senha2").val();
+                if(senha!==senha2){
+                    e.preventDefault();
+                    alert("As senhas precisam ser iguais.");
+                }
+             });
+        </script>
 </h:body>
 
 </html>
