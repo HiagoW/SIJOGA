@@ -1,0 +1,111 @@
+<ui:composition
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="../template.xhtml">
+    <ui:define name="titulo"><title>Processo</title></ui:define>
+    <ui:define name="principal">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Processo 123</h4> </div>
+                </div>
+                <!-- /.row -->
+                <!--row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">DADOS DO PROCESSO</h3>
+                            <h2 class="box-title">STATUS: AGUARDANDO DELIBERAÇÃO</h2>
+                            <div class="form-horizontal form-material">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Número do processo</label>
+                                        <div class="col-md-12">
+                                            <h:inputHidden value="#{processoMB.processo.faseAtual.fase.id}" id="idFase"/>
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.id}" styleClass="form-control form-control-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Data de criação</label>
+                                        <div class="col-md-12">
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.data}" styleClass="form-control form-control-line">
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:MM"/>
+                                            </h:inputText> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Advogado da parte promovente</label>
+                                        <div class="col-md-12">
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovente.nome}" styleClass="form-control form-control-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Parte promovente</label>
+                                        <div class="col-md-12">
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovente.nome}" styleClass="form-control form-control-line"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Advogado da parte promovida</label>
+                                        <div class="col-md-12">
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovido.nome}" styleClass="form-control form-control-line"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-md-12">Parte promovida</label>
+                                        <div class="col-md-12">
+                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovido.nome}" styleClass="form-control form-control-line"/> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!--row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">FASES DO PROCESSO 
+                            </h3>
+                            <div class="table-responsive">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>
+                                            <th>DATA</th>
+                                            <th>RESPONSÁVEL</th>
+                                            <th>TIPO</th>
+                                            <th>JUSTIFICATIVA</th>
+                                            <th>ARQUIVO</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat value="#{processoMB.processo.fases}" var="fase">
+                                            <tr>
+                                                <td><h:outputText value="#{fase.data}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                                    </h:outputText></td>
+                                                <td class="txt-oflo"><h:outputText value="#{fase.responsavel.nome}"/></td>
+                                                <td><h:outputText value="#{fase.fase.descricao}"/></td>
+                                                <td><h:outputText value="#{fase.resposta}"/></td>
+                                                <td><a href='#'><h:outputText value="#{fase.arquivo}"/></a></td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+                
+            </ui:define>
+</ui:composition>

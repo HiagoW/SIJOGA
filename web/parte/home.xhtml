@@ -1,0 +1,117 @@
+<ui:composition
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="../template.xhtml">
+    <ui:define name="titulo"><title>Home Parte</title></ui:define>
+    <ui:define name="principal">
+        <div class="container-fluid">
+                <!--row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box" style="margin-top: 20px;">
+                            <h3 class="box-title">PROCESSOS
+                                <div class="col-md-3 col-sm-5 col-xs-12 pull-right">
+                                    <select class="form-control pull-right row b-none" id="filtro">
+                                        <option value="0">Todos</option>
+                                        <option value="-1">Abertos</option>
+                                        <option value="6">Encerrados</option>
+                                        <option value="-2">Como Promovente</option>
+                                        <option value="-3">Como Promovido</option>
+                                    </select>
+                                </div>
+                            </h3>
+                            <div class="table-responsive">
+                                <table class="table" id="tabelaProcessos">
+                                    <thead>
+                                        <tr>
+                                            <th>Nº</th>
+                                            <th>PAPEL</th>
+                                            <th>DATA</th>
+                                            <th>SITUAÇÃO</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ui:repeat value="#{processosMB.processosParte}" var="processo">
+                                            <tr>
+                                                <td hidden="true" id="idFase"><h:outputText value="#{processo.faseAtual.fase.id}"/></td>
+                                                <td><h:outputText value="#{processo.id}"/></td>
+                                                <td id="tipoParte">
+                                                    <h:outputText value="Promovente" rendered="#{processo.promovente.id == loginMB.usuario.id}"/>
+                                                    <h:outputText value="Promovido" rendered="#{processo.promovido.id == loginMB.usuario.id}"/>
+                                                </td>
+                                                <td class="txt-oflo"><h:outputText value="#{processo.faseAtual.data}">
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText></td>
+                                                <td>#{processo.faseAtual.fase.descricao}</td>
+                                                <td><h:form>
+                                                    <h:commandLink styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" value="Visualizar" action="#{processoMB.visualizarParte(processo.id)}"/>
+                                                </h:form>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                   <div class="col-sm-12">
+                       <div class="white-box">                           
+                           <div class="row">
+                               <div class="col-md-4"></div>
+                               <div class="form-group col-md-4">
+                                    <h4 class="box-title text-center">Relatório de Processos</h4>
+                                    <a role="button" class="btn btn-warning btn-block btn-rounded waves-effect waves-light" >Emitir Relatório</a>
+                               </div>
+                           </div>
+                       </div>
+                   </div> 
+                </div>
+            </div>
+    </ui:define>
+    <ui:define name="scripts">
+        <script>
+            $( document ).ready(function() {
+                
+                $('#filtro').change(function() {
+                    var opc = $( "#filtro option:selected" ).val();
+                    $('#tabelaProcessos > tbody  > tr').each(function() {
+                        if(opc==0){
+                            $(this).show();
+                        }else if(opc==6){
+                            if($("#idFase", this).html() != opc){
+                                $(this).hide();
+                            }else{
+                                $(this).show();
+                            }
+                        }else if(opc==-1){
+                            if($("#idFase", this).html() == 6){
+                                $(this).hide();
+                            }else{
+                                $(this).show();
+                            }
+                        }else if(opc==-2){
+                            console.log($("#tipoParte", this).html());
+                            if($("#tipoParte", this).html().trim() === "Promovente"){
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        }else if(opc==-3){
+                            if($("#tipoParte", this).html().trim() === "Promovido"){
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </ui:define>
+</ui:composition>

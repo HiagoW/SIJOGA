@@ -26,8 +26,8 @@ import managedBeans.LoginMB;
  *
  * @author hiago
  */
-@WebFilter("/faces/juiz/*")
-public class FiltroJuiz implements Filter {
+@WebFilter("/faces/advogado/*")
+public class FiltroAdvogado implements Filter {
     
     
     /**
@@ -48,7 +48,7 @@ public class FiltroJuiz implements Filter {
                 usuario = (Usuario) sess.getAttribute("usuarioLogado");
             }    
             
-             if (usuario == null || usuario.getTipo().getId()!=1) {
+             if (usuario == null || usuario.getTipo().getId()!=2) {
               String contextPath = ((HttpServletRequest) request)
                                  .getContextPath();
               ((HttpServletResponse) response).sendRedirect(contextPath
@@ -68,7 +68,7 @@ public class FiltroJuiz implements Filter {
 
     }
 
-    public FiltroJuiz() {
+    public FiltroAdvogado() {
     }
     
     

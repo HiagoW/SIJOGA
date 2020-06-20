@@ -33,6 +33,7 @@ import util.SessionContext;
 public class ProcessosMB implements Serializable {
     
     private List<Processo> processos = new ArrayList<>();
+    private List<Processo> processosParte = new ArrayList<>();
     private List<Processo> processosPromovente = new ArrayList<>();
     private List<Processo> processosPromovido = new ArrayList<>();
     private long processosAtivos = 0;
@@ -60,6 +61,8 @@ public class ProcessosMB implements Serializable {
             processosPromovente = ProcessoFacade.buscaProcessosAdvPromovente(usuario);
             processosPromovido = ProcessoFacade.buscaProcessosAdvPromovido(usuario);
             /*processosAtivos = ProcessoFacade.processosAtivos(usuario);*/
+        }else if(usuario.getTipo().getId()==3){
+            processosParte = ProcessoFacade.buscaProcessosParte(usuario);
         }
     }
     
@@ -111,4 +114,14 @@ public class ProcessosMB implements Serializable {
     public void setProcessosEncerrados(long processosEncerrados) {
         this.processosEncerrados = processosEncerrados;
     }
+
+    public List<Processo> getProcessosParte() {
+        return processosParte;
+    }
+
+    public void setProcessosParte(List<Processo> processosParte) {
+        this.processosParte = processosParte;
+    }
+    
+    
 }

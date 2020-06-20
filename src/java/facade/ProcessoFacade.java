@@ -28,6 +28,10 @@ public class ProcessoFacade {
         return processoDAO.buscarProcessosAdvPromovente(advogado);
     }
     
+    public static List<Processo> buscaProcessosParte(Usuario parte){
+        return processoDAO.buscarProcessosParte(parte);
+    }
+    
     public static Processo buscarProcesso(long id){
         return processoDAO.buscarProcesso(id);
     } 

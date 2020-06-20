@@ -77,13 +77,14 @@ public class LoginMB implements Serializable {
             usuario = LoginFacade.buscarLogin(email, senhaC);
             
             if(usuario!=null){
+                SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
                 switch(usuario.getTipo().getDescricao()){
                     case "Juiz":
-                        SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
                         return "/juiz/home.xhtml?faces-redirect=true";
                     case "Advogado":
-                        SessionContext.getInstance().setAttribute("usuarioLogado", usuario);
                         return "/advogado/home.xhtml?faces-redirect=true";
+                    case "Parte":
+                        return "/parte/home.xhtml?faces-redirect=true";
                     default:
                         return "";
                 }

@@ -57,6 +57,18 @@ public class ProcessoDAO {
         return processosPromovido;
     }
     
+    public List<Processo> buscarProcessosParte(Usuario parte) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Processo where promovido = :parte or promovente = :parte");
+        query.setParameter("parte", parte);
+        
+        List<Processo> processos = query.list();
+        session.close();
+        
+        return processos;
+    }
+    
     public Processo buscarProcesso(long id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         

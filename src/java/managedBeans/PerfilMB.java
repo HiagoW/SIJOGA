@@ -95,7 +95,14 @@ public class PerfilMB implements Serializable {
             long resultado = CadastroFacade.verificaEmail(email);
             if(resultado!=0){
                 System.out.println("Email ja cadastrado");
-                return "/juiz/home.xhtml";
+                switch(usuario.getTipo().getDescricao()){
+                    case "Juiz":
+                        return "/juiz/home.xhtml";
+                    case "Advogado":
+                        return "/advogado/home.xhtml";
+                    case "Parte":
+                        return "/parte/home.xhtml";
+                }
             }
         }
         MessageDigest m;
@@ -112,6 +119,15 @@ public class PerfilMB implements Serializable {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(PerfilMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/juiz/profile.xhtml";
+        switch(usuario.getTipo().getDescricao()){
+            case "Juiz":
+                return "/juiz/profile.xhtml";
+            case "Advogado":
+                return "/advogado/profile.xhtml";
+            case "Parte":
+                return "/parte/profile.xhtml";
+            default:
+                return "/login.xhtml";
+        }
     }
 }

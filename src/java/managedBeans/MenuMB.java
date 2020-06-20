@@ -46,6 +46,8 @@ public class MenuMB implements Serializable {
                 return "/juiz/profile.xhtml";
             case 2:
                 return "/advogado/profile.xhtml";
+            case 3:
+                return "/parte/profile.xhtml";
             default:
                 return "login.xhtml";
         }
@@ -58,6 +60,8 @@ public class MenuMB implements Serializable {
                 return "/juiz/home.xhtml";
             case 2:
                 return "/advogado/home.xhtml";
+            case 3:
+                return "/parte/home.xhtml";
             default:
                 return "login.xhtml";
         }
