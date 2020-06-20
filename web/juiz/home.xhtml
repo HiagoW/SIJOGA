@@ -59,12 +59,11 @@
                         <div class="white-box">
                             <h3 class="box-title">PROCESSOS RECENTES
                                 <div class="col-md-2 col-sm-4 col-xs-12 pull-right">
-                                    <select class="form-control pull-right row b-none">
-                                        <option>Todos</option>
-                                        <option>Aguardando Deliberação</option>
-                                        <option>Aguardando Intimação</option>
-                                        <option>Em Andamento</option>
-                                        <option>Fechados</option>
+                                    <select class="form-control pull-right row b-none" id="filtro">
+                                        <option value="0">Todos</option>
+                                        <option value="2">Aguardando Deliberação</option>
+                                        <option value="5">Aguardando Intimação</option>
+                                        <option value="6">Fechados</option>
                                     </select>
                                 </div>
                             </h3>
@@ -75,7 +74,7 @@
                                             <th>Nº</th>
                                             <th>PARTE</th>
                                             <th>ADVOGADO</th>
-                                            <th>DATA</th>
+                                            <th>DATA DA FASE</th>
                                             <th>FASE</th>
                                             <th></th>
                                         </tr>
@@ -115,6 +114,19 @@
                     if($("#idFase", this).html() == "2"){
                         $(this).addClass("deliberacao");
                     }
+                });
+                
+                $('#filtro').change(function() {
+                    var opc = $( "#filtro option:selected" ).val();
+                    $('#tabelaProcessos > tbody  > tr').each(function() {
+                        if(opc==0){
+                            $(this).show();
+                        }else if($("#idFase", this).html() != opc){
+                            $(this).hide();
+                        }else{
+                            $(this).show();
+                        }
+                    });
                 });
             });
         </script>

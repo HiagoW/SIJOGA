@@ -100,10 +100,12 @@ public class PerfilMB implements Serializable {
         }
         MessageDigest m;
         try {
-            m = MessageDigest.getInstance("MD5");            
-            m.update(this.senha.getBytes(),0,this.senha.length());
-            String senhaC = new BigInteger(1,m.digest()).toString(16);
-            usuario.setSenha(senhaC);
+            if(!this.senha.isEmpty()){
+                m = MessageDigest.getInstance("MD5");            
+                m.update(this.senha.getBytes(),0,this.senha.length());
+                String senhaC = new BigInteger(1,m.digest()).toString(16);
+                usuario.setSenha(senhaC);
+            }
             usuario.setEmail(email);
             usuario.setNome(nome);
             CadastroFacade.alterar(usuario);

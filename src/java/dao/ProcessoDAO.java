@@ -24,7 +24,7 @@ public class ProcessoDAO {
     public List<Processo> buscarProcessos(Usuario juiz) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from Processo where juiz = :juiz ");
+        Query query = session.createQuery("from Processo where juiz = :juiz order by data desc ");
         query.setParameter("juiz", juiz);
         
         List<Processo> processos = query.list();
