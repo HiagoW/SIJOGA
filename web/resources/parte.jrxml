@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="parte" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77cdbd38-5acd-42aa-bec8-87ae6fbd4772">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIJOGA"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[dXN1YXJpb3MgLDIxOCwyOTAsMTY0MWE3N2UtOTJkZC00OWM4LTllMTQtZWEwOWE2YmQ2NWFmO3By
+b2Nlc3NvX2Zhc2UgLDIxOCwxNSxkMWYzZjQyYi03NzgyLTQ4ZWQtODI2Mi01ZDg5M2U0NTAyYWU7
+cHJvY2Vzc29zICwxNSwxMzEsZGNmMWIxZjUtZGFmOS00MTdkLWIzM2QtMmY4YjNjNjFiOTIxOw==]]>
+	</property>
+	<subDataset name="Empty Dataset1" uuid="ab793523-2d95-4369-bf5b-ab6f33f41c32"/>
+	<subDataset name="Dataset1" uuid="8acde8e9-e1c6-4d7a-a04a-75a30cadcefe">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SIJOGA"/>
+		<queryString language="SQL">
+			<![CDATA[select p.id as numero_processo,
+'Promovente' as tipo,
+(select nome from usuarios where p.advogadoPromovente = id) as advogado,
+(select nome from usuarios where p.promovido = id) as outra_parte,
+(select nome from usuarios where p.advogadoPromovido = id) as advogado_parte,
+(select f.descricao as fase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1),
+(select pf.data as dataFase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1)
+from processos p
+where p.promovente = 2
+union
+select p.id as numero_processo,
+'Promovido' as tipo,
+(select nome from usuarios where p.advogadoPromovido = id) as advogado,
+(select nome from usuarios where p.promovente = id) as outra_parte,
+(select nome from usuarios where p.advogadoPromovente = id) as advogado_parte,
+(select f.descricao as fase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1),
+(select pf.data as dataFase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1)
+from processos p
+where p.promovido = 2]]>
+		</queryString>
+		<field name="numero_processo" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="numero_processo"/>
+		</field>
+		<field name="tipo" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="tipo"/>
+		</field>
+		<field name="advogado" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="advogado"/>
+		</field>
+		<field name="outra_parte" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="outra_parte"/>
+		</field>
+		<field name="advogado_parte" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="advogado_parte"/>
+		</field>
+		<field name="fase" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="fase"/>
+		</field>
+		<field name="datafase" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.label" value="datafase"/>
+		</field>
+	</subDataset>
+	<parameter name="id" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select p.id as numero_processo,
+'Promovente' as tipo,
+(select nome from usuarios where p.advogadoPromovente = id) as advogado,
+(select nome from usuarios where p.promovido = id) as outra_parte,
+(select nome from usuarios where p.advogadoPromovido = id) as advogado_parte,
+(select f.descricao as fase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1),
+(select pf.data as dataFase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1)
+from processos p
+where p.promovente = 2
+union
+select p.id as numero_processo,
+'Promovido' as tipo,
+(select nome from usuarios where p.advogadoPromovido = id) as advogado,
+(select nome from usuarios where p.promovente = id) as outra_parte,
+(select nome from usuarios where p.advogadoPromovente = id) as advogado_parte,
+(select f.descricao as fase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1),
+(select pf.data as dataFase from processo_fase pf inner join fases_processo f
+ on pf.fase = f.id
+where pf.processo = p.id order by pf.data desc limit 1)
+from processos p
+where p.promovido = 2]]>
+	</queryString>
+	<field name="numero_processo" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="numero_processo"/>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+	</field>
+	<field name="advogado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="advogado"/>
+	</field>
+	<field name="outra_parte" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="outra_parte"/>
+	</field>
+	<field name="advogado_parte" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="advogado_parte"/>
+	</field>
+	<field name="fase" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="fase"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="processo_fase"/>
+	</field>
+	<field name="datafase" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="datafase"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="10" width="270" height="35" uuid="965735c3-ef79-4673-9366-1c6d09dda33e"/>
+				<textElement textAlignment="Center">
+					<font size="25"/>
+				</textElement>
+				<text><![CDATA[Relatório de Processos]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="120" y="49" width="100" height="30" uuid="e8aa3872-c4e7-4daf-9519-b3dd821bf3d5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="49" width="100" height="30" uuid="018a1183-ca9e-498b-9e1b-2fc59bc4564a"/>
+				<text><![CDATA[Relatório gerado em:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="18" width="170" height="46" uuid="b2ed9c8e-37e6-452f-a462-3ebe93edb2c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c403bb23-b637-4fe1-bf7a-63b1d235ddce"/>
+				</reportElement>
+				<textElement>
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Processo Nº]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="18" width="140" height="37" uuid="ed3d57c1-34cf-4749-aa9e-299b752a265e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c403bb23-b637-4fe1-bf7a-63b1d235ddce"/>
+				</reportElement>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_processo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="73" width="30" height="19" uuid="b6c44562-7834-4759-9672-71bdcf3d0c0a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="517" y="73" width="28" height="18" uuid="ca795e87-d66c-4d06-80a0-fe360e035cc5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="400" y="74" width="70" height="17" uuid="2fe7cbd2-331b-4258-92d3-3c96e47a940f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Página]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="72" width="35" height="21" uuid="6b0a400b-d5e1-43e1-bc23-81b4b372e6f2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="181" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="2" width="100" height="18" uuid="12a0473f-1bb6-4a2f-a132-404d7d7af9ca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8594b8d-6f43-45eb-8d0b-8f3d50b30d0c"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="50" width="190" height="19" uuid="51d22146-7af1-418b-aad6-fe07d4926413">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0c1a9be-2dd5-4bf1-8094-2dda1a4c6902"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advogado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="100" width="140" height="20" uuid="be2b4eae-4873-47fa-b6a1-8d5942042863">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="511744bd-6b2e-411d-8f2e-4debd643de18"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{outra_parte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="100" width="60" height="20" uuid="2ac8d59c-daa9-482c-aeb4-013565488bde">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="511744bd-6b2e-411d-8f2e-4debd643de18"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parte:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="0" width="40" height="20" uuid="5d0e5777-1d2c-448f-86ec-0fd3b5b4187c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8594b8d-6f43-45eb-8d0b-8f3d50b30d0c"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="50" width="80" height="19" uuid="74f8e3d1-7d90-4022-a605-2eccd5e8fc47">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0c1a9be-2dd5-4bf1-8094-2dda1a4c6902"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Advogado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="100" width="180" height="20" uuid="6df5707c-1e27-4087-a8c3-e3bd5674f111">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d49808-e6b5-4262-adaa-a26eb5d6d4c9"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advogado_parte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="220" y="100" width="150" height="30" uuid="5c2de908-dabe-41d5-8809-31386d2796f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07d49808-e6b5-4262-adaa-a26eb5d6d4c9"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Advogado da Parte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="150" width="60" height="19" uuid="9df6b98c-b439-43d4-9d0a-c53a8c7f399d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dbbac342-c052-4883-b159-a0708098463c"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fase}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="149" width="50" height="19" uuid="07b4d8f1-e7b0-49da-90a8-0ce6874422fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dbbac342-c052-4883-b159-a0708098463c"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fase:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="149" width="70" height="19" uuid="fbac6965-f8ce-4608-8393-d74e41ab8897">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9df880ce-98ee-40d4-9eee-99b909faa648"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datafase}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="149" width="100" height="19" uuid="65496830-b303-4cc0-b538-e56010daed77">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9df880ce-98ee-40d4-9eee-99b909faa648"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da fase:]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="180" width="549" height="1" uuid="02dfe4a3-1dae-4856-a120-1d6276cdbe91"/>
+			</break>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<printWhenExpression><![CDATA[Boolean.FALSE]]></printWhenExpression>
+		</band>
+	</summary>
+</jasperReport>
