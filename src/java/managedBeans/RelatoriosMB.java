@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,6 +52,8 @@ import util.SessionContext;
 public class RelatoriosMB implements Serializable {
    
     private Usuario usuario;
+    private Date dataInicial;
+    private Date dataFinal;
     
     public RelatoriosMB() {
     }
@@ -113,4 +116,115 @@ public class RelatoriosMB implements Serializable {
                 return "/parte/home.xhtml";
             }
     }
+    
+    public String encerrados(){
+        Connection con = null;
+            try {
+                // ConexÃ£o com o banco
+                Class.forName("org.postgresql.Driver");
+                con = DriverManager.getConnection(
+                        "jdbc:postgresql://localhost:5432/sijoga",
+                        "postgres", "159951");
+                
+                String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/encerrados.jasper");
+                File file = new File(relativePath);
+                    
+                // ParÃ¢metros do relatÃ³rio
+                HashMap params = new HashMap();
+                params.put("id", usuario.getId());
+                
+                JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
+                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+                response.addHeader("Content-description", "attachment;filename=names.pdf");
+                ServletOutputStream stream = response.getOutputStream();
+                JasperExportManager.exportReportToPdfStream(print, stream);
+                FacesContext.getCurrentInstance().responseComplete();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Driver BD nÃ£o encontrado : "
+                        + e.getMessage());
+            } catch (SQLException e) {
+                System.out.println("Erro de conexÃ£o ou query: "
+                        + e.getMessage());
+            } catch (JRException e) {
+                System.out.println("Erro no Jasper : "
+                        + e.getMessage());
+            } catch (Exception e){
+                System.out.println("Outro erro : "
+                        + e.getMessage());
+            }finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return "/advogado/home.xhtml";
+            }
+    }
+    
+    public String porData(){
+        Connection con = null;
+            try {
+                // ConexÃ£o com o banco
+                Class.forName("org.postgresql.Driver");
+                con = DriverManager.getConnection(
+                        "jdbc:postgresql://localhost:5432/sijoga",
+                        "postgres", "159951");
+                
+                String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/porData.jasper");
+                File file = new File(relativePath);
+                    
+                // ParÃ¢metros do relatÃ³rio
+                HashMap params = new HashMap();
+                params.put("id", usuario.getId());
+                params.put("dataInicial", dataInicial);
+                params.put("dataFinal", dataFinal);
+                JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
+                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+                response.addHeader("Content-description", "attachment;filename=names.pdf");
+                ServletOutputStream stream = response.getOutputStream();
+                JasperExportManager.exportReportToPdfStream(print, stream);
+                FacesContext.getCurrentInstance().responseComplete();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Driver BD nÃ£o encontrado : "
+                        + e.getMessage());
+            } catch (SQLException e) {
+                System.out.println("Erro de conexÃ£o ou query: "
+                        + e.getMessage());
+            } catch (JRException e) {
+                System.out.println("Erro no Jasper : "
+                        + e.getMessage());
+            } catch (Exception e){
+                System.out.println("Outro erro : "
+                        + e.getMessage());
+            }finally {
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                return "/advogado/home.xhtml";
+            }
+    }
+
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+    
+    
 }
