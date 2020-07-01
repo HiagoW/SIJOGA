@@ -45,5 +45,14 @@ public class ProcessoFaseDAO {
         session.persist(fase);
         session.getTransaction().commit();
         session.close();
+        if(fase.getFase().getDescricao().equalsIgnoreCase("Encerramento")){
+            p.setStatus(0);
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Processo mergep = (Processo) session.merge(p);
+            session.saveOrUpdate(mergep);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

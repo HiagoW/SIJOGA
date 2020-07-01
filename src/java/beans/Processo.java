@@ -50,9 +50,8 @@ public class Processo implements Serializable{
     Usuario promovido;
     @OneToMany(mappedBy = "processo", fetch = FetchType.EAGER)
     List<ProcessoFase> fases;
-    
-    Date data;
     int status;
+    Date data;
     
     @Transient
     ProcessoFase faseAtual;
@@ -124,15 +123,6 @@ public class Processo implements Serializable{
     public void setData(Date data) {
         this.data = data;
     }
-    
-    
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public List<ProcessoFase> getFases() {
         Collections.reverse(fases);
@@ -142,6 +132,15 @@ public class Processo implements Serializable{
     public void setFases(List<ProcessoFase> fases) {
         this.fases = fases;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
     
     
     

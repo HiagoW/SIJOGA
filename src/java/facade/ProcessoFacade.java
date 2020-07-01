@@ -35,4 +35,8 @@ public class ProcessoFacade {
     public static Processo buscarProcesso(long id){
         return processoDAO.buscarProcesso(id);
     } 
+    
+    public static void cadastrar(Processo p){
+        processoDAO.cadastrar(p);
+    }
 }

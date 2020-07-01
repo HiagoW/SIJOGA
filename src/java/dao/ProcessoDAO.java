@@ -6,7 +6,11 @@
 package dao;
 
 import beans.Processo;
+import beans.ProcessoFase;
+import beans.FaseProcesso;
 import beans.Usuario;
+import facade.FaseProcessoFacade;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -79,5 +83,27 @@ public class ProcessoDAO {
         session.close();
         
         return processo;
+    }
+    
+    public void cadastrar(Processo p){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.persist(p);
+        session.getTransaction().commit();
+        session.close();
+        ProcessoFase pf = new ProcessoFase();
+        pf.setResposta("Criação do processo");
+        pf.setData(new Date());
+        pf.setResponsavel(p.getAdvogadoPromovente());
+        FaseProcesso fp = FaseProcessoFacade.buscarFase("Informativa");
+        pf.setFase(fp);
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.merge(p);
+        session.flush();
+        pf.setProcesso(p);
+        session.beginTransaction();
+        session.persist(pf);
+        session.getTransaction().commit();
+        session.close();
     }
 }

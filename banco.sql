@@ -21,7 +21,7 @@ CREATE TABLE processos (
     promovente integer NOT NULL,
     promovido integer NOT NULL,
     advogadopromovido integer,
-    status integer,
+    status int not null DEFAULT 1,
     data date NOT NULL
 );
 
@@ -38,13 +38,18 @@ CREATE TABLE public.usuarios (
     tipo integer NOT NULL
 );
 
-INSERT INTO fases_processo (id, descricao) VALUES (1, 'informativa'),(2, 'deliberativa'),(3, 'aceito'),(4, 'negado'),(5, 'intimacao'),(6, 'encerramento');
+INSERT INTO fases_processo (id, descricao) VALUES (1, 'Informativa'),(2, 'Deliberativa'),(3, 'Aceito'),(4, 'Negado'),(5, 'Intimacao'),(6, 'Encerramento');
 
-INSERT INTO processo_fase (id, processo, responsavel, fase, data) VALUES (150, 100, 3, 1, '2020-05-15');
+INSERT INTO processo_fase (id, processo, responsavel, fase, data) VALUES (150, 100, 3, 1, '2020-06-03 00:00:00'),
+(950, 100, 1, 4, "2020-06-09 15:55:38.005","nai"),(151, 100, 3, 2, "2020-06-04 00:00:00"),
+(152, 101, 4, 1, "2020-06-15 16:00:00"),(153, 102, 6, 1, "2020-05-28 14:55:43"),
+(154, 103, 4, 1, "2020-06-17 11:55:00"),(155, 102, 1, 6, "2020-05-29 12:12:22"),
+(156, 101, 4, 2, "2020-06-18 00:05:00");
 
-
+INSERT INTO processo_fase (id, processo, responsavel, fase, data,resposta) VALUES (950, 100, 1, 4, "2020-06-09 15:55:38.005","nai");
 INSERT INTO processos (id, juiz, advogadopromovente, promovente, promovido, advogadopromovido, status, data)
-VALUES(100, 1, 3, 2, 5, 4, 1, '2020-05-15');
+VALUES(100, 1, 3, 2, 5, 4, '2020-06-03'),(101, 1, 4, 5, 2, 3, '2020-06-15'),(102, 1, 6, 8, 7, 4, '2020-05-28'),
+(103, 9, 4, 7, 8, 6, '2020-06-17');
 
 INSERT INTO tipos_usuarios (id, descricao) VALUES (1,'Juiz'),(2, 'Advogado'), (3, 'Parte');
 

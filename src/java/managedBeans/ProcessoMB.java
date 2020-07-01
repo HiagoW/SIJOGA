@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import util.SessionContext;
@@ -88,12 +89,15 @@ public class ProcessoMB implements Serializable {
         fase.setProcesso(processo);
         fase.setResponsavel(usuario);
         FaseProcesso faseProcesso = null;
+        FacesMessage mensagem = null;
         switch(acaoJuiz){
             case "Aceitar Pedido":
+                mensagem = new FacesMessage("Pedido aceito","");
                 faseProcesso = FaseProcessoFacade.buscarFase("Aceito");
                 break;
             case "Negar Pedido":
                 fase.setResposta(justificativa);
+                mensagem = new FacesMessage("Pedido negado","");
                 faseProcesso = FaseProcessoFacade.buscarFase("Negado");
                 break;
             case "Intimação":
@@ -101,12 +105,15 @@ public class ProcessoMB implements Serializable {
                 break;
             case "Encerrar":
                 fase.setResposta(justificativa);
+                mensagem = new FacesMessage("Processo encerrado","");
                 faseProcesso = FaseProcessoFacade.buscarFase("Encerramento");
                 break;
             default:
                 faseProcesso = FaseProcessoFacade.buscarFase("Informativa");
                 break;
         }
+        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
         fase.setFase(faseProcesso);
         ProcessoFaseFacade.criarFase(fase);
         return "/juiz/home.xhtml";

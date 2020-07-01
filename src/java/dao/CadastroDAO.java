@@ -93,4 +93,56 @@ public class CadastroDAO {
         
         return tipoUsuario;
     }
+    
+    public Usuario buscarUsuario(String email){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Usuario where email = :email");
+        query.setParameter("email", email);
+        
+        Usuario usuario = (Usuario) query.uniqueResult();
+        session.close();
+        
+        return usuario;
+    }
+    
+    public List<Usuario> buscarPartes(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Usuario where tipo.id = 1");
+        
+        List<Usuario> usuarios = query.list();
+        session.close();
+        
+        return usuarios;
+    }
+    
+    public Usuario buscarAdvogadoAleatorio(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Usuario where tipo.id = 2");
+        List<Usuario> usuarios = query.list();
+        int tamanho = usuarios.size()-1;
+        //Gerar numero aleatório
+        
+        Usuario usuario = usuarios.get(tamanho);
+        session.close();
+        
+        return usuario;
+    }
+    
+    //DESENVOLVER A LOGICA
+    public Usuario buscarJuizComMenosProcessos(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from Usuario where tipo.id=3");
+        List<Usuario> usuarios = query.list();
+        int tamanho = usuarios.size()-1;
+        //Gerar numero aleatório
+        
+        Usuario usuario = usuarios.get(tamanho);
+        session.close();
+        
+        return usuario;
+    }
 }

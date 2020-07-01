@@ -34,7 +34,24 @@ public class CadastroFacade {
         return cadastroDAO.buscarTipo(desc);
     }
     
+    public static Usuario buscarUsuario(String email){
+        return cadastroDAO.buscarUsuario(email);
+    }
+    
     public static void alterar(Usuario usuario){
         cadastroDAO.alterar(usuario);
     }
+    
+    public static List<Usuario> buscarPartes(){
+        return cadastroDAO.buscarPartes();
+    }
+    
+    public static Usuario buscarAdvogadoAleatorio(){
+        return cadastroDAO.buscarAdvogadoAleatorio();
+    }
+    
+    public static Usuario buscarJuizComMenosProcesso(){
+        return cadastroDAO.buscarJuizComMenosProcessos();
+    }
+    
 }

@@ -72,4 +72,14 @@ public class Usuario implements Serializable {
     public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
+    
+    @Override
+    public boolean equals(Object e) {
+        return (this.email.equalsIgnoreCase(((Usuario)e).getEmail()));
+    }
+
+    @Override
+    public int hashCode() {
+        return this.email.hashCode();
+    }
 }
