@@ -39,7 +39,7 @@ public class ProcessosMB implements Serializable {
     private long processosAtivos = 0;
     private long processosAguardandoIntimacao = 0;
     private long processosEncerrados = 0;
-    
+    private long processosEmAndamento = 0;
     public ProcessosMB() {
     }
     
@@ -60,6 +60,20 @@ public class ProcessosMB implements Serializable {
         }else if(usuario.getTipo().getId()==2){
             processosPromovente = ProcessoFacade.buscaProcessosAdvPromovente(usuario);
             processosPromovido = ProcessoFacade.buscaProcessosAdvPromovido(usuario);
+            for(Processo p : processosPromovente){
+                if(p.getFaseAtual().getFase().getId() == 6){
+                    processosEncerrados+=1;
+                }else{
+                    processosEmAndamento += 1;
+                }
+            }
+            for(Processo p : processosPromovido){
+                if(p.getFaseAtual().getFase().getId() == 6){
+                    processosEncerrados+=1;
+                }else{
+                    processosEmAndamento += 1;
+                }
+            }
             /*processosAtivos = ProcessoFacade.processosAtivos(usuario);*/
         }else if(usuario.getTipo().getId()==3){
             processosParte = ProcessoFacade.buscaProcessosParte(usuario);
@@ -121,6 +135,14 @@ public class ProcessosMB implements Serializable {
 
     public void setProcessosParte(List<Processo> processosParte) {
         this.processosParte = processosParte;
+    }
+
+    public long getProcessosEmAndamento() {
+        return processosEmAndamento;
+    }
+
+    public void setProcessosEmAndamento(long processosEmAndamento) {
+        this.processosEmAndamento = processosEmAndamento;
     }
     
     

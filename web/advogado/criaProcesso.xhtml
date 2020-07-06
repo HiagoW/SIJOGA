@@ -20,19 +20,17 @@
                                 <h:form>
                                     <div class="form-group">
                                         <h:outputLabel class="col-md-12" value="Cliente: " for="cliente"/>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" id="selectCliente">
                                         <h:selectOneMenu id="cliente" value="#{criaProcessoMB.cliente}" class="form-control form-control-line" converter="usuarioConverter">
                                             <f:selectItems value="#{criaProcessoMB.partes}" var="vusuario" itemLabel="#{vusuario.nome}" itemValue="#{vusuario}"/>
-                                            <f:ajax event="change" listener="#{criaProcessoMB.atualizaPartes}"/>
                                         </h:selectOneMenu>
                                             </div>
                                     </div>
                                     <div class="form-group">
                                         <h:outputLabel class="col-md-12" value="Parte: " for="parte"/>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" id="selectParte">
                                         <h:selectOneMenu id="parte" value="#{criaProcessoMB.parte}" class="form-control form-control-line" converter="usuarioConverter">
-                                            <f:selectItems value="#{criaProcessoMB.partes2}" var="vusuario2" itemLabel="#{vusuario2.nome}" itemValue="#{vusuario2}"/>
-                                            <f:ajax event="change" listener="#{criaProcessoMB.atualizaPartes}"/>
+                                            <f:selectItems value="#{criaProcessoMB.partes}" var="vusuario2" itemLabel="#{vusuario2.nome}" itemValue="#{vusuario2}"/>
                                         </h:selectOneMenu>
                                             </div>
                                     </div>
@@ -52,5 +50,48 @@
                 
             </div>
                 
+            </ui:define>
+            <ui:define name="scripts">
+                <script>
+                    var cont = 0;
+                    $( document ).ready(function() {
+                            $('#selectParte > select > option').each(function() {
+                                if(cont == 0){
+                                    $(this).hide();
+                                    cont+=1;
+                                }else{
+                                    $("#selectParte > select").val($(this).val());
+                                    return false;
+                                    
+                                }
+                            });
+                            $('#selectParte > select option:eq(2)').attr('selected', 'selected');
+                            
+                        $('#selectCliente > select').on('change', function (e) {
+                            var optionSelected = $("option:selected", this);
+                            var valueSelected = this.value;
+                            $('#selectParte > select > option').each(function() {
+                                if($(this).val()==valueSelected){
+                                    $(this).hide();
+                                }else{
+                                    $("#selectParte > select").val($(this).val());
+                                    $(this).show();
+                                }
+                            });
+                        });
+                        $('#selectParte > select').on('change', function (e) {
+                            var optionSelected = $("option:selected", this);
+                            var valueSelected = this.value;
+                            $('#selectCliente > select > option').each(function() {
+                                if($(this).val()==valueSelected){
+                                    $(this).hide();
+                                }else{
+                                    $("#selectParte > select").val($(this).val()).change();
+                                    $(this).show();
+                                }
+                            });
+                        });
+                    });
+                </script>
             </ui:define>
 </ui:composition>

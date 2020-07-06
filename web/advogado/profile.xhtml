@@ -1,0 +1,70 @@
+<ui:composition
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="../template.xhtml">
+    <ui:define name="titulo"><title>Perfil</title></ui:define>
+    <ui:define name="principal">
+        
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Perfil</h4> </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="white-box">
+                            <h:form class="form-horizontal form-material" id="form">
+                                <div class="form-group">
+                                    <h:outputLabel for="nome" class="col-md-12" value="Nome completo"/>
+                                    <div class="col-md-12">
+                                        <h:inputText class="form-control form-control-line" id="nome" value="#{perfilMB.nome}" /> </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="email" class="col-md-12" value="Email"/>
+                                    <div class="col-md-12">
+                                        <h:inputText class="form-control form-control-line" id="email" value="#{perfilMB.email}" /> </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="senha" class="col-md-12" value="Nova Senha"/>
+                                    <span style="margin-left: 0.5em; color:#007bb6;">Deixe em branco caso não deseje alterar</span>
+                                    <div class="col-md-12">
+                                        <h:inputSecret class="form-control form-control-line" id="senha" value="#{perfilMB.senha}"/> </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:outputLabel for="senha2" class="col-md-12" value="Confirmação da Nova Senha"/>
+                                    <div class="col-md-12">
+                                        <h:inputSecret class="form-control form-control-line" id="senha2" value="#{perfilMB.senha2}"/> </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <h:commandButton class="btn btn-success" value="Alterar" action="#{perfilMB.alterarPerfil}"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            
+        
+        </ui:define>
+        
+    <ui:define name="scripts">
+        <script>
+            $('#form').submit(function(e) {
+                
+                var senha = $("#form\\:senha").val();
+                var senha2 = $("#form\\:senha2").val();
+                if(senha!==senha2){
+                    e.preventDefault();
+                    alert("As senhas precisam ser iguais.");
+                }
+             });
+        </script>
+    </ui:define>
+</ui:composition>

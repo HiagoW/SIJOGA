@@ -131,6 +131,11 @@ public class ProcessoMB implements Serializable {
        return "/juiz/encaminhamento.xhtml";
    }
    
+   public String visualizarAdvogado(long id){
+       processo = ProcessoFacade.buscarProcesso(id);
+       return "/advogado/detalhesProcesso.xhtml";
+   }
+   
    public String visualizarParte(long id){
        processo = ProcessoFacade.buscarProcesso(id);
        return "/parte/detalhesProcesso.xhtml";

@@ -8,6 +8,7 @@ package dao;
 import beans.TipoUsuario;
 import beans.Usuario;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -122,10 +123,11 @@ public class CadastroDAO {
         
         Query query = session.createQuery("from Usuario where tipo.id = 2");
         List<Usuario> usuarios = query.list();
-        int tamanho = usuarios.size()-1;
+        int tamanho = usuarios.size();
         //Gerar numero aleatório
+        int randomNum = ThreadLocalRandom.current().nextInt(0, tamanho);
         
-        Usuario usuario = usuarios.get(tamanho);
+        Usuario usuario = usuarios.get(randomNum);
         session.close();
         
         return usuario;
@@ -135,12 +137,9 @@ public class CadastroDAO {
     public Usuario buscarJuizComMenosProcessos(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from Usuario where tipo.id=3");
-        List<Usuario> usuarios = query.list();
-        int tamanho = usuarios.size()-1;
-        //Gerar numero aleatório
-        
-        Usuario usuario = usuarios.get(tamanho);
+        Query query = session.createQuery("select u from Usuario u, Processo p where u.tipo.descricao='Juiz' and u = p.juiz group by(u) order by count(p) asc");
+        query.setMaxResults(1);
+        Usuario usuario = (Usuario) query.uniqueResult();
         session.close();
         
         return usuario;
