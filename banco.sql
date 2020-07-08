@@ -1,3 +1,7 @@
+Cidadaes e estados:
+
+https://gist.github.com/manfe/3975938
+
 CREATE TABLE fases_processo (
     id serial PRIMARY KEY NOT NULL,
     descricao varchar(100) NOT NULL
@@ -152,3 +156,8 @@ ALTER TABLE ONLY public.usuarios
 -- PostgreSQL database dump complete
 --
 
+alter table usuarios add column endereco varchar(200);
+alter table usuarios add column cidade integer;
+alter table usuarios add constraint fk_usuarios_cidade foreign key (cidade) references cidades(id);
+update usuarios set cidade = 1;
+alter table usuarios add column cpf varchar(11);

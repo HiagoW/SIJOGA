@@ -29,6 +29,11 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
+    private String endereco;
+    private String cpf;
+    @ManyToOne
+    @JoinColumn(name = "cidade")
+    private Cidade cidade;
     @ManyToOne
     @JoinColumn(name = "tipo")
     private TipoUsuario tipo;
@@ -72,6 +77,32 @@ public class Usuario implements Serializable {
     public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
+    
     
     @Override
     public boolean equals(Object e) {

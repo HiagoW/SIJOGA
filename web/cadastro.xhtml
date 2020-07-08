@@ -65,6 +65,30 @@
                                 <h:inputText class="form-control form-control-line" id="email" value="#{cadastroMB.email}" /> </div>
                         </div>
                         <div class="form-group">
+                            <h:outputLabel for="cpf" class="col-md-12" value="CPF"/>
+                            <div class="col-md-12">
+                                <h:inputText class="form-control form-control-line" id="cpf" value="#{cadastroMB.cpf}" /> </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-12" value="Estado: " for="estado"/>
+                            <h:selectOneMenu id="estado" value="#{cadastroMB.estado}" class="form-control form-control-line" converter="estadoConverter">
+                                <f:ajax event="change" listener="#{cadastroMB.atualizaCidades}"
+                        execute="form:estado" render="form:cidade"/>
+                                <f:selectItems value="#{cadastroMB.estados}" var="vestado" itemLabel="#{vestado.nome}" itemValue="#{vestado}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-12" value="Cidade: " for="cidade"/>
+                            <h:selectOneMenu id="cidade" value="#{cadastroMB.cidade}" class="form-control form-control-line" converter="cidadeConverter">
+                                <f:selectItems value="#{cadastroMB.cidades}" var="vcidade" itemLabel="#{vcidade.nome}" itemValue="#{vcidade}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="end" class="col-md-12" value="Endereço"/>
+                            <div class="col-md-12">
+                                <h:inputText class="form-control form-control-line" id="end" value="#{cadastroMB.endereco}" /> </div>
+                        </div>
+                        <div class="form-group">
                             <h:outputLabel class="col-md-12" for="senha" value="Senha"/>
                             <div class="col-md-12">
                                 <h:inputSecret class="form-control form-control-line" id="senha" value="#{cadastroMB.senha}"/> </div>
