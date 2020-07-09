@@ -5,11 +5,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       template="../template.xhtml">
     <ui:define name="titulo"><title>Processo</title></ui:define>
+    <ui:define name="menu"><li>
+                        <h:commandLink action="/advogado/cadastroParte.xhtml" value="" styleClass="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Cadastrar Parte</span></h:commandLink>
+                    </li></ui:define>
     <ui:define name="principal">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Processo 123</h4> </div>
+                        <h4 class="page-title">Processo #{processoMB.processo.id}</h4> </div>
                 </div>
                 <!-- /.row -->
                 <!--row -->
@@ -17,7 +20,6 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">DADOS DO PROCESSO</h3>
-                            <h2 class="box-title">STATUS: AGUARDANDO DELIBERAÇÃO</h2>
                             <div class="form-horizontal form-material">
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -72,6 +74,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                <h:form>
+                    <div class="row criarFase">
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-3">
+                            <h:selectOneMenu id="fase" value="#{processoMB.faseAdv}" class="form-control form-control-line" converter="faseConverter">
+                                <f:selectItems value="#{processoMB.opcoesAdvogado}" var="vfase" itemLabel="#{vfase.descricao}" itemValue="#{vfase}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="row criarFase">
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-3">
+                            <label for="justificativa">Justificativa: </label>
+                            <h:inputTextarea id="justificativa" cols="3" rows="3" styleClass="form-control pull-right row b-none" value="#{processoMB.justificativa}"/>
+                        </div>
+                    </div>
+                    <div class="row criarFase">
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-3">
+                            <h:commandButton value="Enviar" styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" action="#{processoMB.criaFase}"/>
+                        </div>
+                    </div>
+                </h:form>
                             </div>
                         </div>
                     </div>
@@ -115,5 +140,14 @@
                 <!-- /.row -->
             </div>
                 
+            </ui:define>
+    <ui:define name="scripts">
+                <script>
+                    $( document ).ready(function() {
+                        if($("#idFase").val() == "6" || $("#idFase").val() == "2"){
+                            $(".criarFase").hide();
+                        }
+                    });
+                </script>
             </ui:define>
 </ui:composition>

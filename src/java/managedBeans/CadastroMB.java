@@ -190,4 +190,35 @@ public class CadastroMB implements Serializable {
         }
         return "login.xhtml";
     }
+    
+    public String cadastrarParte(){
+        long resultado = CadastroFacade.verificaEmail(email);
+        if(resultado!=0){
+            System.out.println("Email ja cadastrado");
+            return "/advogado/cadastroParte.xhtml";
+        }
+        Usuario usuario = new Usuario();
+        MessageDigest m;
+        try {
+            m = MessageDigest.getInstance("MD5");            
+            m.update(this.senha.getBytes(),0,this.senha.length());
+            String senhaC = new BigInteger(1,m.digest()).toString(16);
+            usuario.setSenha(senhaC);
+            usuario.setCpf(cpf);
+            usuario.setEmail(email);
+            usuario.setNome(nome);
+            for(TipoUsuario t : tipos){
+                if(t.getDescricao().equals("Parte")){
+                    usuario.setTipo(t);
+                    break;
+                }
+            }
+            usuario.setCidade(cidade);
+            usuario.setEndereco(endereco);
+            CadastroFacade.cadastrar(usuario);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CadastroMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/advogado/home.xhtml";
+    }
 }

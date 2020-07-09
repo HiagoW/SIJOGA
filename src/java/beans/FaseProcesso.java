@@ -44,6 +44,16 @@ public class FaseProcesso implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (this.descricao.equalsIgnoreCase(((FaseProcesso)obj).getDescricao())); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hashCode() {
+        return this.descricao.hashCode(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

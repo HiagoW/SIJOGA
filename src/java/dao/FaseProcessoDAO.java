@@ -34,4 +34,15 @@ public class FaseProcessoDAO {
         return fase;
     }
     
+    public List<FaseProcesso> buscarFasesAdv() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        Query query = session.createQuery("from FaseProcesso where id = 1 or id = 2");
+        
+        List<FaseProcesso> fases = query.list();
+        session.close();
+        
+        return fases;
+    }
+    
 }

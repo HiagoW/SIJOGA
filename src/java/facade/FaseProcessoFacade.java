@@ -23,4 +23,7 @@ public class FaseProcessoFacade {
         return faseProcessoDAO.buscarFase(descricao);
     }
     
+    public static List<FaseProcesso> buscarFasesAdv(){
+        return faseProcessoDAO.buscarFasesAdv();
+    }
 }

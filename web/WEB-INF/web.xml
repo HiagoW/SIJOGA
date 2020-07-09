@@ -33,4 +33,12 @@
         <filter-name>Filtro</filter-name>
         <url-pattern>/juiz/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>FiltroAdv</filter-name>
+        <filter-class>filters.FiltroAdvogado</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAdv</filter-name>
+        <url-pattern>/advogado/*</url-pattern>
+    </filter-mapping>
 </web-app>

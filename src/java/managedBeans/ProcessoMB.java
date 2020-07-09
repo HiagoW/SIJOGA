@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -39,10 +40,20 @@ public class ProcessoMB implements Serializable {
     
     private Processo processo;
     private List<String> opcoesJuiz;
+    private List<FaseProcesso> opcoesAdvogado;
     private String acaoJuiz;
     private String justificativa;
+    private FaseProcesso faseAdv;
     
     public ProcessoMB() {
+    }
+    
+    @PostConstruct
+    public void init(){
+        Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
+        if(usuario.getTipo().getDescricao().equals("Advogado")){
+            opcoesAdvogado = FaseProcessoFacade.buscarFasesAdv();
+        }
     }
 
     public Processo getProcesso() {
@@ -140,4 +151,36 @@ public class ProcessoMB implements Serializable {
        processo = ProcessoFacade.buscarProcesso(id);
        return "/parte/detalhesProcesso.xhtml";
    }
+
+    public List<FaseProcesso> getOpcoesAdvogado() {
+        return opcoesAdvogado;
+    }
+
+    public void setOpcoesAdvogado(List<FaseProcesso> opcoesAdvogado) {
+        this.opcoesAdvogado = opcoesAdvogado;
+    }
+
+    public FaseProcesso getFaseAdv() {
+        return faseAdv;
+    }
+
+    public void setFaseAdv(FaseProcesso fase) {
+        this.faseAdv = fase;
+    }
+   
+    public String criaFase(){
+        Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
+        ProcessoFase fase = new ProcessoFase();
+        fase.setData(new Date());
+        fase.setProcesso(processo);
+        fase.setResponsavel(usuario);
+        fase.setFase(faseAdv);
+        fase.setResposta(justificativa);
+        FacesMessage mensagem = new FacesMessage("Fase criada","");
+        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        ProcessoFaseFacade.criarFase(fase);
+        return "/advogado/home.xhtml";
+    }
+   
 }
