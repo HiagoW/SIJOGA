@@ -13,21 +13,31 @@ import facade.FaseProcessoFacade;
 import facade.LoginFacade;
 import facade.ProcessoFacade;
 import facade.ProcessoFaseFacade;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Part;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import util.SessionContext;
 
 /**
@@ -44,6 +54,7 @@ public class ProcessoMB implements Serializable {
     private String acaoJuiz;
     private String justificativa;
     private FaseProcesso faseAdv;
+    private Part arquivo; 
     
     public ProcessoMB() {
     }
@@ -169,8 +180,18 @@ public class ProcessoMB implements Serializable {
     }
    
     public String criaFase(){
+        String arq = null;
+        try{
+            arq = importar();
+        }catch(IOException e){
+                FacesMessage mensagem = new FacesMessage("Erro no upload do arquivo","");
+                mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                FacesContext.getCurrentInstance().addMessage(null, mensagem);
+                return "/advogado/detalhesProcesso.xhtml";
+            }
         Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
         ProcessoFase fase = new ProcessoFase();
+        fase.setArquivo(arq);
         fase.setData(new Date());
         fase.setProcesso(processo);
         fase.setResponsavel(usuario);
@@ -182,5 +203,26 @@ public class ProcessoMB implements Serializable {
         ProcessoFaseFacade.criarFase(fase);
         return "/advogado/home.xhtml";
     }
-   
+    
+    public String importar() throws IOException{
+                    InputStream input = arquivo.getInputStream();
+			String fileName = arquivo.getSubmittedFileName();
+                        String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/arquivos");
+                        File file = new File(path,fileName);
+	           Files.copy(input, file.toPath());
+                   input.close();
+                   return file.toPath().toString();
+    }
+
+    public Part getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(Part arquivo) {
+        this.arquivo = arquivo;
+    }
+    
+    
+    
+    
 }

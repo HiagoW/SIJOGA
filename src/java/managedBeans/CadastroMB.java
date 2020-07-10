@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -168,8 +169,10 @@ public class CadastroMB implements Serializable {
     public String cadastrar(){
         long resultado = CadastroFacade.verificaEmail(email);
         if(resultado!=0){
-            System.out.println("Email ja cadastrado");
-            return "login.xhtml";
+            FacesMessage mensagem = new FacesMessage("Email já cadastrado","");
+            mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
+            return "cadastro.xhtml";
         }
         Usuario usuario = new Usuario();
         MessageDigest m;
@@ -194,7 +197,9 @@ public class CadastroMB implements Serializable {
     public String cadastrarParte(){
         long resultado = CadastroFacade.verificaEmail(email);
         if(resultado!=0){
-            System.out.println("Email ja cadastrado");
+            FacesMessage mensagem = new FacesMessage("Email já cadastrado","");
+            mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage(null, mensagem);
             return "/advogado/cadastroParte.xhtml";
         }
         Usuario usuario = new Usuario();

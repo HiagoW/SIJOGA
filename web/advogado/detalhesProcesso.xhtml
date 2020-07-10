@@ -13,6 +13,7 @@
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Processo #{processoMB.processo.id}</h4> </div>
+                        <h:messages style="color: green"  showDetail="false"/>
                 </div>
                 <!-- /.row -->
                 <!--row -->
@@ -74,7 +75,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h:form>
+                                <h:form enctype="multipart/form-data">
                     <div class="row criarFase">
                         <div class="col-md-4"></div>
                         <div class="form-group col-md-3">
@@ -88,6 +89,15 @@
                         <div class="form-group col-md-3">
                             <label for="justificativa">Justificativa: </label>
                             <h:inputTextarea id="justificativa" cols="3" rows="3" styleClass="form-control pull-right row b-none" value="#{processoMB.justificativa}"/>
+                        </div>
+                    </div>
+                                    <div class="row criarFase">
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-3">
+                            <label for="arquivo">Arquivo: </label>
+                            <h:inputFile id="arquivo" value="#{processoMB.arquivo}" 
+        required="true" label="Arquivo" /> <br/>
+                            
                         </div>
                     </div>
                     <div class="row criarFase">
