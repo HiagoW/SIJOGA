@@ -14,6 +14,7 @@ import facade.LoginFacade;
 import facade.ProcessoFacade;
 import facade.ProcessoFaseFacade;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -206,8 +209,18 @@ public class ProcessoMB implements Serializable {
     
     public String importar() throws IOException{
                     InputStream input = arquivo.getInputStream();
-			String fileName = arquivo.getSubmittedFileName();
+			String fileName = processo.getId().toString()+"_"+String.valueOf(System.currentTimeMillis())+"_"+arquivo.getSubmittedFileName();
                         String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/arquivos");
+                        String[] sPath = path.split(Pattern.quote(File.separator));
+                        path = "";
+                        for(String p : sPath){
+                            path += p+"\\";
+                            if(p.equals("SIJOGA")){
+                                break;
+                            }
+                        }
+                        path += "web\\arquivos";
+                        
                         File file = new File(path,fileName);
 	           Files.copy(input, file.toPath());
                    input.close();
@@ -222,7 +235,18 @@ public class ProcessoMB implements Serializable {
         this.arquivo = arquivo;
     }
     
-    
+    public void download(String arquivo) throws IOException {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ExternalContext ec = fc.getExternalContext();
+
+        ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
+        ec.setResponseContentType(FacesContext.getCurrentInstance().getExternalContext().getMimeType(arquivo)); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ExternalContext#getMimeType() for auto-detection based on filename.
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + arquivo + "\""); // The Save As popup magic is done here. You can give it any file name you want, this only won't work in MSIE, it will use current request URL as file name instead.
+
+        OutputStream output = ec.getResponseOutputStream();
+        Files.copy(Paths.get(arquivo), output);
+        fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
+    }
     
     
 }

@@ -139,7 +139,11 @@
                                                 <td class="txt-oflo"><h:outputText value="#{fase.responsavel.nome}"/></td>
                                                 <td><h:outputText value="#{fase.fase.descricao}"/></td>
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
-                                                <td><a href='#'><h:outputText value="#{fase.arquivo}"/></a></td>
+                                                <td>
+                                                    <h:form>
+                                                        <h:commandButton action="#{processoMB.download(fase.arquivo)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
+                                                    </h:form>
+                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>
