@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,8 +53,8 @@ import util.SessionContext;
 public class RelatoriosMB implements Serializable {
    
     private Usuario usuario;
-    private Date dataInicial;
-    private Date dataFinal;
+    private String dataInicial;
+    private String dataFinal;
     
     public RelatoriosMB() {
     }
@@ -178,8 +179,11 @@ public class RelatoriosMB implements Serializable {
                 // ParÃ¢metros do relatÃ³rio
                 HashMap params = new HashMap();
                 params.put("id", usuario.getId());
-                params.put("dataInicial", dataInicial);
-                params.put("dataFinal", dataFinal);
+                SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+                Date datai = fmt.parse(dataInicial);
+                params.put("dataInicial", datai);
+                Date dataf = fmt.parse(dataFinal);
+                params.put("dataFinal", dataf);
                 JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
                 response.addHeader("Content-description", "attachment;filename=names.pdf");
@@ -210,19 +214,19 @@ public class RelatoriosMB implements Serializable {
             }
     }
 
-    public Date getDataInicial() {
+    public String getDataInicial() {
         return dataInicial;
     }
 
-    public void setDataInicial(Date dataInicial) {
+    public void setDataInicial(String dataInicial) {
         this.dataInicial = dataInicial;
     }
 
-    public Date getDataFinal() {
+    public String getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
     

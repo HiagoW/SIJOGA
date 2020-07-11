@@ -129,18 +129,18 @@
                            </div>
                        </div>
                    </div> 
-                    <h:form>
+                    <h:form id="form">
                         <div class="col-sm-6" >
                         <div class="white-box" >
                             <h4 class="box-title">Relatório de Processos Abertos</h4>
                             
                             <div class="row">
-                                <label class="col-sm-3" style="margin-top: 3px;">Data Inicial:</label><br/>
-                                <p:calendar value="#{relatoriosMB.dataInicial}" mode="inline" id="inlineCal"/>
+                                <label style="margin-top: 3px;">Data Inicial:</label><br/>
+                                <h:inputText id="datai" value="#{relatoriosMB.dataInicial}" />
                             </div>
                             <div class="row">
-                                <label class="col-sm-3" style="margin-top: 3px;">Data Final:</label><br/>
-                                <p:calendar value="#{relatoriosMB.dataFinal}" mode="inline" id="inlineCal2"/>
+                                <label style="margin-top: 3px;">Data Final:</label><br/>
+                                <h:inputText id="dataf" value="#{relatoriosMB.dataFinal}" />
                             </div><br/>
                             <div class="row">
                                 <div class="col-md-5">
@@ -193,5 +193,9 @@
                 });
             });
         </script>
+        <script type="text/javascript">
+                jQuery("#form\\:datai").mask("99/99/9999");
+                jQuery("#form\\:dataf").mask("99/99/9999");
+            </script>
     </ui:define>
 </ui:composition>
