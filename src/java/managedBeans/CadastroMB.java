@@ -224,6 +224,6 @@ public class CadastroMB implements Serializable {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(CadastroMB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/advogado/home.xhtml";
+        return "/advogado/home.xhtml?faces-redirect=true";
     }
 }

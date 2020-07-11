@@ -19,6 +19,11 @@
                         <div class="white-box">
                             <h:form class="form-horizontal form-material" id="form">
                                 <div class="form-group">
+                                    <h:outputLabel for="cpf" class="col-md-12" value="CPF"/>
+                                    <div class="col-md-12">
+                                        <h:inputText class="form-control form-control-line" id="cpf" value="#{perfilMB.cpf}" /> </div>
+                                </div>
+                                <div class="form-group">
                                     <h:outputLabel for="nome" class="col-md-12" value="Nome completo"/>
                                     <div class="col-md-12">
                                         <h:inputText class="form-control form-control-line" id="nome" value="#{perfilMB.nome}" /> </div>
@@ -28,6 +33,25 @@
                                     <div class="col-md-12">
                                         <h:inputText class="form-control form-control-line" id="email" value="#{perfilMB.email}" /> </div>
                                 </div>
+                                <div class="form-group">
+                            <h:outputLabel class="col-md-12" value="Estado: " for="estado"/>
+                            <h:selectOneMenu id="estado" value="#{perfilMB.estado}" class="form-control form-control-line" converter="estadoConverter">
+                                <f:ajax event="change" listener="#{perfilMB.atualizaCidades}"
+                        execute="form:estado" render="form:cidade"/>
+                                <f:selectItems value="#{perfilMB.estados}" var="vestado" itemLabel="#{vestado.nome}" itemValue="#{vestado}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-12" value="Cidade: " for="cidade"/>
+                            <h:selectOneMenu id="cidade" value="#{perfilMB.cidade}" class="form-control form-control-line" converter="cidadeConverter">
+                                <f:selectItems value="#{perfilMB.cidades}" var="vcidade" itemLabel="#{vcidade.nome}" itemValue="#{vcidade}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel for="end" class="col-md-12" value="Endereço"/>
+                            <div class="col-md-12">
+                                <h:inputText class="form-control form-control-line" id="end" value="#{perfilMB.endereco}" /> </div>
+                        </div>
                                 <div class="form-group">
                                     <h:outputLabel for="senha" class="col-md-12" value="Nova Senha"/>
                                     <span style="margin-left: 0.5em; color:#007bb6;">Deixe em branco caso não deseje alterar</span>
@@ -44,6 +68,7 @@
                                         <h:commandButton class="btn btn-success" value="Alterar" action="#{perfilMB.alterarPerfil}"/>
                                     </div>
                                 </div>
+                                <h:messages/>
                             </h:form>
                         </div>
                     </div>

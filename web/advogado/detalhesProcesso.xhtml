@@ -22,6 +22,7 @@
                         <div class="white-box">
                             <h3 class="box-title">DADOS DO PROCESSO</h3>
                             <div class="form-horizontal form-material">
+                                <h:form id="form">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Número do processo</label>
@@ -75,6 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </h:form>
                                 <h:form enctype="multipart/form-data">
                     <div class="row criarFase">
                         <div class="col-md-4"></div>
@@ -141,7 +143,7 @@
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
                                                 <td>
                                                     <h:form>
-                                                        <h:commandButton action="#{processoMB.download(fase.arquivo)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
+                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
                                                     </h:form>
                                                 </td>
                                             </tr>
@@ -158,7 +160,7 @@
     <ui:define name="scripts">
                 <script>
                     $( document ).ready(function() {
-                        if($("#idFase").val() == "6" || $("#idFase").val() == "2"){
+                        if($("#form\\:idFase").val() == "6" || $("#form\\:idFase").val() == "2"){
                             $(".criarFase").hide();
                         }
                     });

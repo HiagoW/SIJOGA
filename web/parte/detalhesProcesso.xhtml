@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Processo Processo #{processoMB.processo.id}</h4> </div>
+                        <h4 class="page-title">Processo #{processoMB.processo.id}</h4> </div>
                 </div>
                 <!-- /.row -->
                 <!--row -->
@@ -102,13 +102,18 @@
                                                 <td class="txt-oflo"><h:outputText value="#{fase.responsavel.nome}"/></td>
                                                 <td><h:outputText value="#{fase.fase.descricao}"/></td>
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
-                                                <td><a href='#'><h:outputText value="#{fase.arquivo}"/></a></td>
+                                                <td>
+                                                    <h:form>
+                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
+                                                    </h:form>
+                                                </td>
                                             </tr>
                                         </ui:repeat>
                                     </tbody>
                                 </table></div>
                         </div>
                     </div>
+                </div>
                 </div>
                 <!-- /.row -->
             </div>

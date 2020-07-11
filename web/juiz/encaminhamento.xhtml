@@ -13,6 +13,7 @@
                 </div>
                 <!-- /.row -->
                 <!--row -->
+                <h:form id="form">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
@@ -94,6 +95,7 @@
                         </div>
                     </div>
                 </div>
+                </h:form>
                 <!-- /.row -->
                 <!--row -->
                 <div class="row">
@@ -124,7 +126,7 @@
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
                                                 <td>
                                                     <h:form>
-                                                        <h:commandButton action="#{processoMB.download(fase.arquivo)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
+                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
                                                     </h:form>
                                                 </td>
                                             </tr>
@@ -141,7 +143,7 @@
             <ui:define name="scripts">
                 <script>
                     $( document ).ready(function() {
-                        if($("#idFase").val() != "2"){
+                        if($("#form\\:idFase").val() != "2"){
                             $(".deliberar").hide();
                         }
                         

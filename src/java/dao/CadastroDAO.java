@@ -110,7 +110,7 @@ public class CadastroDAO {
     public List<Usuario> buscarPartes(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from Usuario where tipo.id = 1");
+        Query query = session.createQuery("from Usuario where tipo.id = 3");
         
         List<Usuario> usuarios = query.list();
         session.close();
