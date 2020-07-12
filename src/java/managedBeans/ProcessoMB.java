@@ -20,13 +20,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +41,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonObject;
 import javax.servlet.http.Part;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -58,6 +64,10 @@ public class ProcessoMB implements Serializable {
     private String justificativa;
     private FaseProcesso faseAdv;
     private Part arquivo; 
+    private String oficial;
+    private Map<String,String> oficiais = new LinkedHashMap<String, String>();
+    private Usuario intimado;
+    private List<Usuario> partes = new ArrayList<>();
     
     public ProcessoMB() {
     }
@@ -108,6 +118,9 @@ public class ProcessoMB implements Serializable {
     
     
     public String processaAcao(){
+        if(acaoJuiz.equals("Intimação")){
+            return redirectIntimacao();
+        }
         Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
         ProcessoFase fase = new ProcessoFase();
         fase.setData(new Date());
@@ -125,9 +138,6 @@ public class ProcessoMB implements Serializable {
                 mensagem = new FacesMessage("Pedido negado","");
                 faseProcesso = FaseProcessoFacade.buscarFase("Negado");
                 break;
-            case "Intimação":
-                faseProcesso = FaseProcessoFacade.buscarFase("Intimacao");
-                break;
             case "Encerrar":
                 fase.setResposta(justificativa);
                 mensagem = new FacesMessage("Processo encerrado","");
@@ -141,6 +151,40 @@ public class ProcessoMB implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
         fase.setFase(faseProcesso);
         ProcessoFaseFacade.criarFase(fase);
+        return "/juiz/home.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectIntimacao(){
+        oficiais.put("1", "Oficial 1");
+        oficiais.put("2", "Oficial 2");
+        partes.add(processo.getPromovente());
+        partes.add(processo.getPromovido());
+        return "/juiz/intima.xhtml";
+    }
+    
+    public String intimar(){
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("idProcesso", processo.getId());
+        builder.add("oficial", oficial);
+        builder.add("intimado", intimado.getNome());
+        builder.add("cpfIntimado", intimado.getCpf());
+        builder.add("enderecoIntimado", intimado.getEndereco());
+        builder.add("cidadeIntimado", intimado.getCidade().getNome());
+        builder.add("estadoIntimado", intimado.getCidade().getEstado().getNome());
+        Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
+        ProcessoFase fase = new ProcessoFase();
+        fase.setData(new Date());
+        fase.setProcesso(processo);
+        fase.setResponsavel(usuario);
+        FaseProcesso faseProcesso = FaseProcessoFacade.buscarFase("Intimacao");
+        FacesMessage mensagem = new FacesMessage("Intimação solicitada","");
+        fase.setResposta("Oficial designado: " + oficiais.get(oficial) + "; Intimado: " + intimado.getNome());
+        mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, mensagem);
+        fase.setFase(faseProcesso);
+        ProcessoFaseFacade.criarFase(fase);
+        JsonObject json = builder.build();
+        System.out.println(json);
         return "/juiz/home.xhtml?faces-redirect=true";
     }
     
@@ -185,7 +229,9 @@ public class ProcessoMB implements Serializable {
     public String criaFase(){
         String arq = null;
         try{
-            arq = importar();
+            if(arquivo != null){
+                arq = importar();
+            }
         }catch(IOException e){
                 FacesMessage mensagem = new FacesMessage("Erro no upload do arquivo","");
                 mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -194,7 +240,9 @@ public class ProcessoMB implements Serializable {
             }
         Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
         ProcessoFase fase = new ProcessoFase();
-        fase.setArquivo(arq);
+        if(arq!=null){
+            fase.setArquivo(arq);
+        }
         fase.setData(new Date());
         fase.setProcesso(processo);
         fase.setResponsavel(usuario);
@@ -246,6 +294,38 @@ public class ProcessoMB implements Serializable {
         OutputStream output = ec.getResponseOutputStream();
         Files.copy(Paths.get(arquivo), output);
         fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
+    }
+
+    public String getOficial() {
+        return oficial;
+    }
+
+    public void setOficial(String oficial) {
+        this.oficial = oficial;
+    }
+
+    public Map<String, String> getOficiais() {
+        return oficiais;
+    }
+
+    public void setOficiais(Map<String, String> oficiais) {
+        this.oficiais = oficiais;
+    }
+
+    public Usuario getIntimado() {
+        return intimado;
+    }
+
+    public void setIntimado(Usuario intimado) {
+        this.intimado = intimado;
+    }
+
+    public List<Usuario> getPartes() {
+        return partes;
+    }
+
+    public void setPartes(List<Usuario> partes) {
+        this.partes = partes;
     }
     
     

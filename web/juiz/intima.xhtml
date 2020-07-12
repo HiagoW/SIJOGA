@@ -4,25 +4,21 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       template="../template.xhtml">
-    <ui:define name="titulo"><title>Processo</title></ui:define>
-    <ui:define name="menu"><li>
-                        <h:commandLink action="/advogado/cadastroParte.xhtml" value="" styleClass="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Cadastrar Parte</span></h:commandLink>
-                    </li></ui:define>
+    <ui:define name="titulo"><title>Home Juiz</title></ui:define>
     <ui:define name="principal">
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Processo #{processoMB.processo.id}</h4> </div>
-                        <h:messages style="color: green"  showDetail="false"/>
                 </div>
                 <!-- /.row -->
                 <!--row -->
+                <h:form id="form">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
                             <h3 class="box-title">DADOS DO PROCESSO</h3>
                             <div class="form-horizontal form-material">
-                                <h:form id="form">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Número do processo</label>
@@ -68,50 +64,43 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="col-md-12">Juiz</label>
-                                        <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.juiz.nome}" styleClass="form-control form-control-line"/> 
+                                <h:form>
+                                    <div class="row deliberar">
+                                        <div class="col-md-4"></div>
+                                        <div class="form-group col-md-3">
+                                            <h:selectOneMenu id="oficiais" styleClass="form-control pull-right row b-none" 
+                                                             value="#{processoMB.oficial}">
+                                                <f:selectItems value="#{processoMB.oficiais.entrySet()}"
+                                                               var="opcao"
+                                                               itemLabel="#{opcao.value}"
+                                                               itemValue="#{opcao.key}"/>
+                                            </h:selectOneMenu>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row deliberar">
+                                        <div class="col-md-4"></div>
+                                        <div class="form-group col-md-3">
+                                            <h:selectOneMenu id="intimado" styleClass="form-control pull-right row b-none" 
+                                                             value="#{processoMB.intimado}" converter="usuarioConverter">
+                                                <f:selectItems value="#{processoMB.partes}"
+                                                               var="vintimado"
+                                                               itemLabel="#{vintimado.nome}"
+                                                               itemValue="#{vintimado}"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="row deliberar">
+                                        <div class="col-md-4"></div>
+                                        <div class="form-group col-md-3">
+                                            <h:commandButton value="Intimar" styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" action="#{processoMB.intimar}"/>
+                                        </div>
+                                    </div>
                                 </h:form>
-                                <h:form enctype="multipart/form-data">
-                    <div class="row criarFase">
-                        <div class="col-md-4"></div>
-                        <div class="form-group col-md-3">
-                            <h:selectOneMenu id="fase" value="#{processoMB.faseAdv}" class="form-control form-control-line" converter="faseConverter">
-                                <f:selectItems value="#{processoMB.opcoesAdvogado}" var="vfase" itemLabel="#{vfase.descricao}" itemValue="#{vfase}"/>
-                            </h:selectOneMenu>
-                        </div>
-                    </div>
-                    <div class="row criarFase">
-                        <div class="col-md-4"></div>
-                        <div class="form-group col-md-3">
-                            <label for="justificativa">Justificativa: </label>
-                            <h:inputTextarea id="justificativa" cols="3" rows="3" styleClass="form-control pull-right row b-none" value="#{processoMB.justificativa}"/>
-                        </div>
-                    </div>
-                                    <div class="row criarFase">
-                        <div class="col-md-4"></div>
-                        <div class="form-group col-md-3">
-                            <label for="arquivo">Arquivo: </label>
-                            <h:inputFile id="arquivo" value="#{processoMB.arquivo}" label="Arquivo" /> <br/>
-                            
-                        </div>
-                    </div>
-                    <div class="row criarFase">
-                        <div class="col-md-4"></div>
-                        <div class="form-group col-md-3">
-                            <h:commandButton value="Enviar" styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" action="#{processoMB.criaFase}"/>
-                        </div>
-                    </div>
-                </h:form>
                             </div>
                         </div>
                     </div>
                 </div>
+                </h:form>
                 <!-- /.row -->
                 <!--row -->
                 <div class="row">
@@ -155,14 +144,5 @@
                 <!-- /.row -->
             </div>
                 
-            </ui:define>
-    <ui:define name="scripts">
-                <script>
-                    $( document ).ready(function() {
-                        if($("#form\\:idFase").val() == "6" || $("#form\\:idFase").val() == "2" || $("#form\\:idFase").val() == "5"){
-                            $(".criarFase").hide();
-                        }
-                    });
-                </script>
             </ui:define>
 </ui:composition>
