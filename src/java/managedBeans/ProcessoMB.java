@@ -5,7 +5,9 @@
  */
 package managedBeans;
 
+import DTOs.DadosIntimacaoDTO;
 import beans.FaseProcesso;
+import DTOs.OficialDTO;
 import beans.Processo;
 import beans.ProcessoFase;
 import beans.Usuario;
@@ -45,6 +47,12 @@ import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonObject;
 import javax.servlet.http.Part;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import util.SessionContext;
@@ -64,8 +72,9 @@ public class ProcessoMB implements Serializable {
     private String justificativa;
     private FaseProcesso faseAdv;
     private Part arquivo; 
-    private String oficial;
-    private Map<String,String> oficiais = new LinkedHashMap<String, String>();
+    private Long oficial;
+    private String nomeOficial;
+    private List<OficialDTO> oficiais = new ArrayList<>();
     private Usuario intimado;
     private List<Usuario> partes = new ArrayList<>();
     
@@ -155,22 +164,59 @@ public class ProcessoMB implements Serializable {
     }
     
     public String redirectIntimacao(){
-        oficiais.put("1", "Oficial 1");
-        oficiais.put("2", "Oficial 2");
+        Client client = ClientBuilder.newClient();
+         Response resp = client
+                 .target("http://localhost:8080/WebService/webresources/trabalho/lista")
+                 .request(MediaType.APPLICATION_JSON)
+                 .get();
+        
+         if(resp.getStatus() < 200 || resp.getStatus() > 299){
+             FacesMessage mensagem = new FacesMessage("Erro ao buscar lista de oficiais","");
+             mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                FacesContext.getCurrentInstance().addMessage(null, mensagem);
+                return "/juiz/home.xhtml?faces-redirect=true";
+         }
+         
+        oficiais = resp.readEntity(new GenericType<List<OficialDTO>>(){});
+        
         partes.add(processo.getPromovente());
         partes.add(processo.getPromovido());
         return "/juiz/intima.xhtml";
     }
     
     public String intimar(){
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("idProcesso", processo.getId());
-        builder.add("oficial", oficial);
-        builder.add("intimado", intimado.getNome());
-        builder.add("cpfIntimado", intimado.getCpf());
-        builder.add("enderecoIntimado", intimado.getEndereco());
-        builder.add("cidadeIntimado", intimado.getCidade().getNome());
-        builder.add("estadoIntimado", intimado.getCidade().getEstado().getNome());
+        for(OficialDTO o : oficiais){
+            if(o.getId() == oficial){
+                nomeOficial = o.getNome();
+                break;
+            }
+        }
+        
+        DadosIntimacaoDTO dadosIntimacaoDTO = new DadosIntimacaoDTO();
+        
+        
+        dadosIntimacaoDTO.setIdProcesso(processo.getId());
+        dadosIntimacaoDTO.setIdOficial(oficial);
+        dadosIntimacaoDTO.setNomeIntimado(intimado.getNome());
+        dadosIntimacaoDTO.setCpfIntimado(intimado.getCpf());
+        dadosIntimacaoDTO.setEndereco(intimado.getEndereco());
+        dadosIntimacaoDTO.setCidade(intimado.getCidade().getNome());
+        dadosIntimacaoDTO.setEstado(intimado.getCidade().getEstado().getNome());
+        
+        Client client = ClientBuilder.newClient();
+        
+        Response resp = client
+                 .target("http://localhost:8080/WebService/webresources/trabalho/retorno")
+                 .request(MediaType.APPLICATION_JSON)
+                 .post(Entity.json(dadosIntimacaoDTO));
+        
+        if(resp.getStatus() < 200 || resp.getStatus() > 299){
+             FacesMessage mensagem = new FacesMessage("Erro ao retornar intimação para SOSIFOD","");
+             mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                FacesContext.getCurrentInstance().addMessage(null, mensagem);
+                return "/juiz/home.xhtml?faces-redirect=true";
+         }
+        
         Usuario usuario = (Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
         ProcessoFase fase = new ProcessoFase();
         fase.setData(new Date());
@@ -178,13 +224,12 @@ public class ProcessoMB implements Serializable {
         fase.setResponsavel(usuario);
         FaseProcesso faseProcesso = FaseProcessoFacade.buscarFase("Intimacao");
         FacesMessage mensagem = new FacesMessage("Intimação solicitada","");
-        fase.setResposta("Oficial designado: " + oficiais.get(oficial) + "; Intimado: " + intimado.getNome());
+        fase.setResposta("Oficial designado: " + nomeOficial + "; Intimado: " + intimado.getNome());
         mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage(null, mensagem);
         fase.setFase(faseProcesso);
         ProcessoFaseFacade.criarFase(fase);
-        JsonObject json = builder.build();
-        System.out.println(json);
+        
         return "/juiz/home.xhtml?faces-redirect=true";
     }
     
@@ -296,21 +341,33 @@ public class ProcessoMB implements Serializable {
         fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
     }
 
-    public String getOficial() {
+    public Long getOficial() {
         return oficial;
     }
 
-    public void setOficial(String oficial) {
+    public void setOficial(Long oficial) {
         this.oficial = oficial;
     }
 
-    public Map<String, String> getOficiais() {
+    public String getNomeOficial() {
+        return nomeOficial;
+    }
+
+    public void setNomeOficial(String nomeOficial) {
+        this.nomeOficial = nomeOficial;
+    }
+
+    
+
+    public List<OficialDTO> getOficiais() {
         return oficiais;
     }
 
-    public void setOficiais(Map<String, String> oficiais) {
+    public void setOficiais(List<OficialDTO> oficiais) {
         this.oficiais = oficiais;
     }
+
+    
 
     public Usuario getIntimado() {
         return intimado;

@@ -70,10 +70,10 @@
                                         <div class="form-group col-md-3">
                                             <h:selectOneMenu id="oficiais" styleClass="form-control pull-right row b-none" 
                                                              value="#{processoMB.oficial}">
-                                                <f:selectItems value="#{processoMB.oficiais.entrySet()}"
+                                                <f:selectItems value="#{processoMB.oficiais}"
                                                                var="opcao"
-                                                               itemLabel="#{opcao.value}"
-                                                               itemValue="#{opcao.key}"/>
+                                                               itemLabel="#{opcao.nome}"
+                                                               itemValue="#{opcao.id}"/>
                                             </h:selectOneMenu>
                                         </div>
                                     </div>

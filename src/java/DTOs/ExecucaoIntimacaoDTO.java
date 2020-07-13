@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beans;
+package DTOs;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author hiago
  */
-public class Intimacao {
+public class ExecucaoIntimacaoDTO {
     private long idProcesso;
     private String data;
     private String status;
