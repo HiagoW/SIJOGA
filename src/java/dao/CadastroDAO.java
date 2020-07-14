@@ -75,7 +75,7 @@ public class CadastroDAO {
     public List<TipoUsuario> buscarTipos(){
         Session session = HibernateUtil.getSessionFactory().openSession();
         
-        Query query = session.createQuery("from TipoUsuario");
+        Query query = session.createQuery("from TipoUsuario where id=1 or id=2");
         
         List<TipoUsuario> tipos = query.list();
         session.close();
