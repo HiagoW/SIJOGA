@@ -166,7 +166,7 @@ public class ProcessoMB implements Serializable {
     public String redirectIntimacao(){
         Client client = ClientBuilder.newClient();
          Response resp = client
-                 .target("http://localhost:8080/WebService/webresources/trabalho/lista")
+                 .target("http://localhost:8080/SOSIFOD/webresources/lista")
                  .request(MediaType.APPLICATION_JSON)
                  .get();
         
@@ -201,12 +201,12 @@ public class ProcessoMB implements Serializable {
         dadosIntimacaoDTO.setCpfIntimado(intimado.getCpf());
         dadosIntimacaoDTO.setEndereco(intimado.getEndereco());
         dadosIntimacaoDTO.setCidade(intimado.getCidade().getNome());
-        dadosIntimacaoDTO.setEstado(intimado.getCidade().getEstado().getNome());
+        dadosIntimacaoDTO.setEstado(intimado.getCidade().getEstado().getSigla());
         
         Client client = ClientBuilder.newClient();
         
         Response resp = client
-                 .target("http://localhost:8080/WebService/webresources/trabalho/retorno")
+                 .target("http://localhost:8080/SOSIFOD/webresources/intimacao")
                  .request(MediaType.APPLICATION_JSON)
                  .post(Entity.json(dadosIntimacaoDTO));
         
