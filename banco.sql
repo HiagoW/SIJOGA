@@ -113,7 +113,7 @@ INSERT INTO fases_processo (id, descricao) VALUES (1, 'Informativa'),(2, 'Delibe
 
 INSERT INTO tipos_usuarios (id, descricao) VALUES (1,'Juiz'),(2, 'Advogado'), (3, 'Parte');
 
-INSERT INTO usuarios (nome, email, senha, tipo) VALUES
+INSERT INTO usuarios (id, nome, email, senha, tipo) VALUES
 (2, 'Maria Joaquina', 'maria@gmail.com', '202cb962ac59075b964b07152d234b70', 3),
 (3, 'Leonardo Barbosa', 'leonardo@gmail.com', '202cb962ac59075b964b07152d234b70', 2),
 (4, 'Fernando Hoflinger', 'fernando@gmail.com', '202cb962ac59075b964b07152d234b70', 2),
