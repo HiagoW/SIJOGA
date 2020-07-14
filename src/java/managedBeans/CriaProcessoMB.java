@@ -85,9 +85,9 @@ public class CriaProcessoMB implements Serializable {
         p.setPromovido(parte);
         p.setData(new Date());
         p.setStatus(1);
-        Usuario advParte = null;
+        Usuario advParte = CadastroFacade.buscarAdvogadoAleatorio();
         Usuario juiz = CadastroFacade.buscarJuizComMenosProcesso();
-        while(CadastroFacade.buscarAdvogadoAleatorio().getId().equals(adv.getId())){
+        while(advParte.getId().equals(adv.getId())){
             advParte = CadastroFacade.buscarAdvogadoAleatorio();
         }
         p.setAdvogadoPromovido(advParte);

@@ -125,7 +125,7 @@ public class CadastroDAO {
         List<Usuario> usuarios = query.list();
         int tamanho = usuarios.size();
         //Gerar numero aleatório
-        int randomNum = ThreadLocalRandom.current().nextInt(0, tamanho-1);
+        int randomNum = ThreadLocalRandom.current().nextInt(0, tamanho);
         
         Usuario usuario = usuarios.get(randomNum);
         session.close();
