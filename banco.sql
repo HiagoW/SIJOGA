@@ -79,8 +79,8 @@ CREATE TABLE processo_fase (
     processo integer NOT NULL,
     responsavel integer NOT NULL,
     fase integer NOT NULL,
-    data timestamp NOT NULL,
-    arquivo varchar(100),
+    data timestamptz NOT NULL,
+    arquivo varchar(250),
     resposta varchar(250),
     oficial integer
 );

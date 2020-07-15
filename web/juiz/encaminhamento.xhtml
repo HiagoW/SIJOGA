@@ -24,13 +24,13 @@
                                         <label class="col-md-12">Número do processo</label>
                                         <div class="col-md-12">
                                             <h:inputHidden value="#{processoMB.processo.faseAtual.fase.id}" id="idFase"/>
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.id}" styleClass="form-control form-control-line"/>
+                                            <h:inputText disabled="true" value="#{processoMB.processo.id}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Data de criação</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.data}" styleClass="form-control form-control-line">
+                                            <h:inputText disabled="true" value="#{processoMB.processo.data}" styleClass="form-control form-control-line">
                                                 <f:convertDateTime pattern="dd/MM/yyyy HH:MM"/>
                                             </h:inputText> 
                                         </div>
@@ -40,13 +40,13 @@
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Advogado da parte promovente</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovente.nome}" styleClass="form-control form-control-line"/>
+                                            <h:inputText disabled="true" value="#{processoMB.processo.advogadoPromovente.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Parte promovente</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovente.nome}" styleClass="form-control form-control-line"/>
+                                            <h:inputText disabled="true" value="#{processoMB.processo.promovente.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                 </div>
@@ -54,13 +54,13 @@
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Advogado da parte promovida</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.advogadoPromovido.nome}" styleClass="form-control form-control-line"/>
+                                            <h:inputText disabled="true" value="#{processoMB.processo.advogadoPromovido.nome}" styleClass="form-control form-control-line"/>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="col-md-12">Parte promovida</label>
                                         <div class="col-md-12">
-                                            <h:inputText disabled="disabled" value="#{processoMB.processo.promovido.nome}" styleClass="form-control form-control-line"/> 
+                                            <h:inputText disabled="true" value="#{processoMB.processo.promovido.nome}" styleClass="form-control form-control-line"/> 
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
                                                 <td>
                                                     <h:form>
-                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" styleClass="btn btn-sm btn-info btn-block btn-rounded waves-effect waves-light" value="Download"/>                                        
+                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" class="btn btn-success" value="Download"/>                                        
                                                     </h:form>
                                                 </td>
                                             </tr>
