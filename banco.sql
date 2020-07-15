@@ -93,7 +93,7 @@ CREATE TABLE processos (
     promovido integer NOT NULL,
     advogadopromovido integer,
     status int not null DEFAULT 1,
-    data date NOT NULL
+    data timestamptz NOT NULL
 );
 
 CREATE TABLE tipos_usuarios (
@@ -125,15 +125,15 @@ INSERT INTO usuarios (id, nome, email, senha, tipo) VALUES
 (9,	'Marcelo Bretas', 'bretas@gmail.com', '202cb962ac59075b964b07152d234b70', 1);;
 
 INSERT INTO processos (id, juiz, advogadopromovente, promovente, promovido, advogadopromovido, status, "data")
-VALUES(1, 1, 3, 2, 5, 4, 1, '2020-06-03'),(2, 1, 4, 5, 2, 3, 1, '2020-06-15'),(3, 1, 6, 8, 7, 4, 1, '2020-05-28'),
-(4, 9, 4, 7, 8, 6, 1, '2020-06-17');
+VALUES(1, 1, 3, 2, 5, 4, 1, '2020-06-03 23:00:00-03'),(2, 1, 4, 5, 2, 3, 1, '2020-06-15 23:00:00-03'),(3, 1, 6, 8, 7, 4, 0, '2020-05-28 23:00:00-03'),
+(4, 9, 4, 7, 8, 6, 1, '2020-06-17 23:00:00-03');
 
 INSERT INTO processo_fase (processo, responsavel, fase, "data", resposta) VALUES (1, 1, 4, '2020-06-09 15:55:38.005','Não aceito.');
 INSERT INTO processo_fase (processo, responsavel, fase, "data") VALUES
-(1, 3, 1, '2020-06-03 00:00:00'),(1, 3, 2, '2020-06-04 00:00:00'),
-(2, 4, 1, '2020-06-15 16:00:00'),(3, 6, 1, '2020-05-28 14:55:43'),
-(4, 4, 1, '2020-06-17 11:55:00'),(3, 1, 6, '2020-05-29 12:12:22'),
-(2, 4, 2, '2020-06-18 00:05:00');
+(1, 3, 1, '2020-06-03 23:00:00-03'),(1, 3, 2, '2020-06-04 23:00:00-03'),
+(2, 4, 1, '2020-06-15 16:00:00-03'),(3, 6, 1, '2020-05-28 14:55:43-03'),
+(4, 4, 1, '2020-06-17 11:55:00-03'),(3, 1, 6, '2020-05-29 12:12:22-03'),
+(2, 4, 2, '2020-06-18 00:05:00-03');
 
 --
 -- TOC entry 2738 (class 2606 OID 18167)
