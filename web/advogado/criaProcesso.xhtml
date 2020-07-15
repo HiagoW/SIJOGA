@@ -20,7 +20,7 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="form-horizontal form-material">
-                                <h:form>
+                                <h:form id="form">
                                     <div class="form-group">
                                         <h:outputLabel class="col-md-12" value="Cliente: " for="cliente"/>
                                         <div class="col-md-6" id="selectCliente">
@@ -40,7 +40,7 @@
                                 
                                         <div class="form-group">
                                             <div class="col-md-6">
-                                            <h:commandButton value="Enviar" styleClass="btn btn-danger btn-block btn-rounded waves-effect waves-light" action="#{criaProcessoMB.criar}"/>
+                                            <h:commandButton value="Enviar" class="btn btn-success" action="#{criaProcessoMB.criar}"/>
                                             </div>
                                             </div>
                                 
@@ -56,45 +56,15 @@
             </ui:define>
             <ui:define name="scripts">
                 <script>
-                    var cont = 0;
-                    $( document ).ready(function() {
-                            $('#selectParte > select > option').each(function() {
-                                if(cont == 0){
-                                    $(this).hide();
-                                    cont+=1;
-                                }else{
-                                    $("#selectParte > select").val($(this).val());
-                                    return false;
-                                    
-                                }
-                            });
-                            $('#selectParte > select option:eq(2)').attr('selected', 'selected');
-                            
-                        $('#selectCliente > select').on('change', function (e) {
-                            var optionSelected = $("option:selected", this);
-                            var valueSelected = this.value;
-                            $('#selectParte > select > option').each(function() {
-                                if($(this).val()==valueSelected){
-                                    $(this).hide();
-                                }else{
-                                    $("#selectParte > select").val($(this).val());
-                                    $(this).show();
-                                }
-                            });
-                        });
-                        $('#selectParte > select').on('change', function (e) {
-                            var optionSelected = $("option:selected", this);
-                            var valueSelected = this.value;
-                            $('#selectCliente > select > option').each(function() {
-                                if($(this).val()==valueSelected){
-                                    $(this).hide();
-                                }else{
-                                    $("#selectParte > select").val($(this).val()).change();
-                                    $(this).show();
-                                }
-                            });
-                        });
-                    });
+                    document.getElementById("form").onsubmit = function(event) {mySubmitFunction(event)};
+                    function mySubmitFunction()
+                        {
+                          if($( "#selectParte > select" ).val() === $( "#selectCliente > select").val()){
+                              alert("Não é possível que uma pessoa processe ela mesma.");
+                              event.preventDefault();
+                              return false;
+                          }
+                        }
                 </script>
             </ui:define>
 </ui:composition>

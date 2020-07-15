@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import util.SessionContext;
@@ -86,6 +87,9 @@ public class LoginMB implements Serializable {
                     case "Parte":
                         return "/parte/home.xhtml?faces-redirect=true";
                     default:
+                        FacesMessage mensagem = new FacesMessage("Login ou senha inválidos","");
+             mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                FacesContext.getCurrentInstance().addMessage(null, mensagem);
                         return "";
                 }
             }else{
