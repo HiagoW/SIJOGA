@@ -90,7 +90,8 @@ public class RelatoriosMB implements Serializable {
                 
                 JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.addHeader("Content-description", "attachment;filename=names.pdf");
+                response.addHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
+                response.setContentType("application/pdf");
                 ServletOutputStream stream = response.getOutputStream();
                 JasperExportManager.exportReportToPdfStream(print, stream);
                 FacesContext.getCurrentInstance().responseComplete();
@@ -133,10 +134,12 @@ public class RelatoriosMB implements Serializable {
                 // ParÃ¢metros do relatÃ³rio
                 HashMap params = new HashMap();
                 params.put("id", usuario.getId());
+                System.out.println(usuario.getId());
                 
                 JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.addHeader("Content-description", "attachment;filename=names.pdf");
+                response.addHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
+                response.setContentType("application/pdf");
                 ServletOutputStream stream = response.getOutputStream();
                 JasperExportManager.exportReportToPdfStream(print, stream);
                 FacesContext.getCurrentInstance().responseComplete();
@@ -186,7 +189,8 @@ public class RelatoriosMB implements Serializable {
                 params.put("dataFinal", dataf);
                 JasperPrint print = JasperFillManager.fillReport(file.getPath(), params, con);
                 HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                response.addHeader("Content-description", "attachment;filename=names.pdf");
+                response.addHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
+                response.setContentType("application/pdf");
                 ServletOutputStream stream = response.getOutputStream();
                 JasperExportManager.exportReportToPdfStream(print, stream);
                 FacesContext.getCurrentInstance().responseComplete();
