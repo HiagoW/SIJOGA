@@ -56,6 +56,10 @@ public class RelatoriosMB implements Serializable {
     private String dataInicial;
     private String dataFinal;
     
+    //Troca para o seu usuario do banco:
+    private final String usuarioBD = "eduardo";
+    private final String senhaBD = "1504";
+    
     public RelatoriosMB() {
     }
     
@@ -79,7 +83,7 @@ public class RelatoriosMB implements Serializable {
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection(
                         "jdbc:postgresql://localhost:5432/sijoga",
-                        "postgres", "159951");
+                       usuarioBD, senhaBD);
                 
                 String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/parte.jasper");
                 File file = new File(relativePath);
@@ -126,7 +130,7 @@ public class RelatoriosMB implements Serializable {
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection(
                         "jdbc:postgresql://localhost:5432/sijoga",
-                        "postgres", "159951");
+                        usuarioBD, senhaBD);
                 
                 String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/encerrados.jasper");
                 File file = new File(relativePath);
@@ -174,7 +178,7 @@ public class RelatoriosMB implements Serializable {
                 Class.forName("org.postgresql.Driver");
                 con = DriverManager.getConnection(
                         "jdbc:postgresql://localhost:5432/sijoga",
-                        "postgres", "159951");
+                        usuarioBD, senhaBD);
                 
                 String relativePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/porData.jasper");
                 File file = new File(relativePath);
