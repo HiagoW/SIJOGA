@@ -87,13 +87,13 @@ public class LoginMB implements Serializable {
                     case "Parte":
                         return "/parte/home.xhtml?faces-redirect=true";
                     default:
-                        FacesMessage mensagem = new FacesMessage("Login ou senha inválidos","");
-             mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
-                FacesContext.getCurrentInstance().addMessage(null, mensagem);
                         return "";
                 }
             }else{
                 FacesContext.getCurrentInstance().validationFailed();
+                FacesMessage mensagem = new FacesMessage("Login ou senha inválidos","");
+                    mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                       FacesContext.getCurrentInstance().addMessage(null, mensagem);
                 return "";
             }
             
