@@ -42,7 +42,7 @@ public class CORSFilter implements ContainerRequestFilter, ContainerResponseFilt
             response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
             response.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization, xxx-header");     
         }
-        response.getHeaders().add("Access-Control-Allow-Origin", "localhost");
+        response.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:8080/SOSIFOD");
     }
     
 }
