@@ -179,7 +179,7 @@ public class ProcessoMB implements Serializable {
          }
          
         oficiais = resp.readEntity(new GenericType<List<OficialDTO>>(){});
-        
+        partes.clear();
         partes.add(processo.getPromovente());
         partes.add(processo.getPromovido());
         return "/juiz/intima.xhtml";
