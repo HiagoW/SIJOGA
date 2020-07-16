@@ -5,6 +5,7 @@
  */
 package managedBeans;
 
+import org.omnifaces.util.Faces;
 import DTOs.DadosIntimacaoDTO;
 import beans.FaseProcesso;
 import DTOs.OficialDTO;
@@ -339,16 +340,8 @@ public class ProcessoMB implements Serializable {
     }
     
     public void download(String arquivo, Date data) throws IOException {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext ec = fc.getExternalContext();
-        
-        ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
-        ec.setResponseContentType(FacesContext.getCurrentInstance().getExternalContext().getMimeType(arquivo)); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ExternalContext#getMimeType() for auto-detection based on filename.
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=" + processo.getId().toString().replace(" ", "_").replace(".","_") + "_" + data.toString() + "." + arquivo.split("\\.")[1]); // The Save As popup magic is done here. You can give it any file name you want, this only won't work in MSIE, it will use current request URL as file name instead.
-
-        OutputStream output = ec.getResponseOutputStream();
-        Files.copy(Paths.get(arquivo), output);
-        fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
+        File file = new File(arquivo);
+        Faces.sendFile(file, true);
     }
 
     public Long getOficial() {

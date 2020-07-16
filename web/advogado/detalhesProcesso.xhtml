@@ -142,7 +142,7 @@
                                                 <td><h:outputText value="#{fase.resposta}"/></td>
                                                 <td>
                                                     <h:form>
-                                                        <h:commandButton action="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" class="btn btn-success" value="Download"/>                                        
+                                                        <h:commandButton immediate="true" actionListener="#{processoMB.download(fase.arquivo, fase.data)}" rendered="#{fase.arquivo!=null}" class="btn btn-success" value="Download"/>                                        
                                                     </h:form>
                                                 </td>
                                             </tr>
