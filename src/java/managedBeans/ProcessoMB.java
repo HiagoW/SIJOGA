@@ -301,18 +301,28 @@ public class ProcessoMB implements Serializable {
     }
     
     public String importar() throws IOException{
+                    String fileSeparator = Pattern.quote(File.separator);
                     InputStream input = arquivo.getInputStream();
 			String fileName = processo.getId().toString()+"_"+String.valueOf(System.currentTimeMillis())+"_"+arquivo.getSubmittedFileName();
                         String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/arquivos");
-                        String[] sPath = path.split(Pattern.quote(File.separator));
+                        String[] sPath = path.split(fileSeparator);
                         path = "";
                         for(String p : sPath){
-                            path += p+"\\";
+                            if(fileSeparator.equals("\\")){
+                                path += p+"\\";
+                            }else{
+                                path += p+"/";
+                            }
                             if(p.equals("SIJOGA")){
                                 break;
                             }
                         }
-                        path += "web\\arquivos";
+                        if(fileSeparator.equals("\\")){
+                                path += "web\\arquivos";
+                            }else{
+                                path += "web/arquivos";
+                            }
+                        
                         
                         File file = new File(path,fileName);
 	           Files.copy(input, file.toPath());
@@ -334,7 +344,7 @@ public class ProcessoMB implements Serializable {
         
         ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
         ec.setResponseContentType(FacesContext.getCurrentInstance().getExternalContext().getMimeType(arquivo)); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ExternalContext#getMimeType() for auto-detection based on filename.
-        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + processo.getId().toString().replace(" ", "_").replace(".","_") + "_" + data.toString() + "." + arquivo.split("\\.")[1] + "\""); // The Save As popup magic is done here. You can give it any file name you want, this only won't work in MSIE, it will use current request URL as file name instead.
+        ec.setResponseHeader("Content-Disposition", "attachment; filename=" + processo.getId().toString().replace(" ", "_").replace(".","_") + "_" + data.toString() + "." + arquivo.split("\\.")[1]); // The Save As popup magic is done here. You can give it any file name you want, this only won't work in MSIE, it will use current request URL as file name instead.
 
         OutputStream output = ec.getResponseOutputStream();
         Files.copy(Paths.get(arquivo), output);
