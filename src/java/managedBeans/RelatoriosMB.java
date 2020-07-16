@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -57,8 +58,8 @@ public class RelatoriosMB implements Serializable {
     private String dataFinal;
     
     //Troca para o seu usuario do banco:
-    private final String usuarioBD = "eduardo";
-    private final String senhaBD = "1504";
+    private final String usuarioBD = "postgres";
+    private final String senhaBD = "159951";
     
     public RelatoriosMB() {
     }
@@ -99,18 +100,11 @@ public class RelatoriosMB implements Serializable {
                 ServletOutputStream stream = response.getOutputStream();
                 JasperExportManager.exportReportToPdfStream(print, stream);
                 FacesContext.getCurrentInstance().responseComplete();
-            } catch (ClassNotFoundException e) {
-                System.out.println("Driver BD nÃ£o encontrado : "
-                        + e.getMessage());
-            } catch (SQLException e) {
-                System.out.println("Erro de conexÃ£o ou query: "
-                        + e.getMessage());
-            } catch (JRException e) {
-                System.out.println("Erro no Jasper : "
-                        + e.getMessage());
             } catch (Exception e){
-                System.out.println("Outro erro : "
-                        + e.getMessage());
+                FacesContext.getCurrentInstance().validationFailed();
+                FacesMessage mensagem = new FacesMessage("Erro na geração do relatório","");
+                    mensagem.setSeverity(FacesMessage.SEVERITY_INFO);
+                       FacesContext.getCurrentInstance().addMessage(null, mensagem);
             }finally {
                 if (con != null) {
                     try {
